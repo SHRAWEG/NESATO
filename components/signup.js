@@ -2,6 +2,7 @@ import React from "react";
 import Head from "next/head"
 import Link from "next/link";
 import router from "next/router";
+import { signIn } from "next-auth/client";
 import HeadLogo from '../components/headLogo';
 import fetch from 'isomorphic-unfetch';
 import { Formik } from 'formik';
@@ -79,6 +80,11 @@ import * as Yup from 'yup';
                       console.log(json.message);
 
                       if (response.status === 200) {
+                        await signIn("credentials", {
+                          redirect: false,
+                          email: values.email,
+                          password: values.password,
+                        });
                         router.replace("/");
                       }
 
