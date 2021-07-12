@@ -1,0 +1,46 @@
+.typewriter {
+    border-right: solid 4px rgba(126, 126, 126, 0.7);
+    white-space: nowrap;
+    overflow: hidden;
+    width: 11;
+    height: 1.4ch;
+    animation: typewriter 1s steps(11) 0s, cursor 500ms steps(11) infinite;
+}
+
+.button-ani{
+    animation: btn-hidden 2s 0s, btn 2s 1s;
+}
+
+.slideup{
+    overflow: hidden;
+    animation: slideUp 600ms 0s;
+}
+
+@keyframes typewriter {
+    0%{width: 0;}
+    100%{width: 11ch;}
+}
+@keyframes cursor {
+    0%{border-right-color: rgba(126, 126, 126, 0.7);}
+    100%{border-right-color: transparent;}
+}
+
+@keyframes btn-hidden {
+    0%{opacity: 0;}
+    100%{opacity: 0;}
+}
+@keyframes btn {
+    0%{opacity: 0;}
+    100%{opacity: 1;}
+}
+
+@keyframes slideUp {
+    from {
+        margin-top: 50%;
+        opacity: 0;
+    }
+    to{
+        margin-bottom: 80px;
+        opacity: 1;
+    }
+}
