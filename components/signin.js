@@ -3,16 +3,20 @@ import Head from "next/head"
 import Link from "next/link";
 import router from "next/router";
 import HeadLogo from '../components/headLogo';
-import fetch from 'isomorphic-unfetch';
+import { useState } from "react";
+import { signIn, useSession } from "next-auth/client";
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 const SignIn = () => {
+    const [session, loading] = useSession();
+    const [errorMsg, setErrorMsg] = useState();
+
     return (
         <>
             <Head>
             <title>
-                Sign up
+                Sign in
             </title>
             </Head>
             <div className="bg-gray-200 font-body flex flex-col w-screen items-center h-full min-h-screen" >
@@ -36,41 +40,42 @@ const SignIn = () => {
                             })}
 
                             onSubmit={async (values, {setFieldError}) => {
-                                try {
-                                const response = await fetch('/api/auth/authenticate', {
-                                    method: 'POST',
-                                    headers: {
-                                    'Content-Type': 'application/json',
-                                    },
-                                    body: JSON.stringify(values),
-                                })
+                                if(!session) {
+                                    try {
+                                        const response = await signIn("credentials", {
+                                            redirect: false,
+                                            email: values.email,
+                                            password: values.password,
+                                        });
 
-                                const json = await response.json();
+                                        console.log(response.error);
 
-                                if (response.status === 405) {
-                                    setFieldError("email", "No such email address exists")
+                                        if (response.error) {
+                                            setErrorMsg(response.error)
+                                        }
+
+                                        if (!response.error) {
+                                            router.replace("/");
+                                        }
+        
+                                    } catch (error) {
+                                            console.log(
+                                            error
+                                            );
+                                        }
+                                } else {
+                                    router.push("/");
                                 }
-
-                                if (response.status === 406) {
-                                    setFieldError("password", "Password do not match. Please try again.")
-                                }
-
-                                console.log(json.message);
-
-                                } catch (error) {
-                                    console.log(
-                                    error
-                                    );
-                                }
-
-                            }
-                            }
+                            }}
                         >
                             {formik => (
                                 <form
                                     noValidate
                                     onSubmit={formik.handleSubmit}
-                                >
+                                >   
+                                    <p className="text-red-500 text-lg font-semibold w-80 text-center mb-4">
+                                            {errorMsg}
+                                    </p>
                                     <div className="mb-4"> 
                                     <label className="block text-gray-700 text-lg font-bold mb-2" htmlFor="email">
                                         Email
@@ -116,10 +121,10 @@ const SignIn = () => {
 
                                     <div className="flex flex-col items-between justify-evenly">
                                         <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-2 mt-6" type="submit">
-                                            Sign Up
+                                            Sign In
                                         </button>
                                     </div>
-                                    <p className="pt-3 flex justify-center">No account! Go and&nbsp;<Link href="/signup" passHref><a className="text-yellow-500 hover:text-yellow-700 font-bold">Sign Up</a></Link>&nbsp;right now!</p>
+                                    <p className="pt-3 flex justify-center">Not registered? Go and&nbsp;<Link href="/signup" passHref><a className="text-yellow-500 hover:text-yellow-700 font-bold">Sign Up</a></Link>&nbsp;right now!</p>
                                 </form>
                                 )}
                         </Formik>

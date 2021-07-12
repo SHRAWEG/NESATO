@@ -18,20 +18,23 @@ const options = {
 
                 const users = await collection.findOne({email: { $regex: "^" + credentials.email + "$", $options: "i" }});
 
-                const isValid =  await verifyPassword(credentials.password, users.password); 
-
                 if (!users) {
-                throw new Error("No user found")
-                }
+                    throw new Error("No such email exists")
+                } 
 
                 else { 
-                    if (!isValid) throw new Error("Password is not valid");
-                    
+                    const isValid =  await verifyPassword(credentials.password, users.password);
+
+                    if (!isValid) throw new Error("Password doest not match")
+
                     return users;
                 }
             }
         }),
     ],
+    pages: {
+        signIn: "../../signin"
+    },
     session: {
         jwt: true,
     }

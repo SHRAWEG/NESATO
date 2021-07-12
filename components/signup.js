@@ -78,13 +78,6 @@ import * as Yup from 'yup';
 
                       console.log(json.message);
 
-                    //   setUserCredentials({
-                    //     email: "",
-                    //     username: "",
-                    //     password: "",
-                    //     confirmPassword: "",
-                    //   });
-
                       if (response.status === 200) {
                         router.replace("/");
                       }
@@ -193,7 +186,7 @@ import * as Yup from 'yup';
                             Sign Up
                         </button>
                     </div>
-                    <p className="pt-3 flex justify-center">Yo Buddy! You can simply&nbsp;<Link href="/singin" passHref><a className="text-yellow-500 hover:text-yellow-700 font-bold">Sign in</a></Link>&nbsp;as well!</p>
+                    <p className="pt-3 flex justify-center">Yo Buddy! You can simply&nbsp;<Link href="/signin" passHref><a className="text-yellow-500 hover:text-yellow-700 font-bold">Sign in</a></Link>&nbsp;as well!</p>
                   </form>
                 )}
               </Formik>
