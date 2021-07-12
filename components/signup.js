@@ -6,6 +6,8 @@ import nesaLogo from '../public/img/NesaLogo.png';
 import { useState } from "react";
 import { useRouter } from "next/router";
 
+import HeadLogo from './headLogo';
+
 const signup = () => {
     const [userCredentials, setUserCredentials] = useState({
         username: "",
@@ -72,9 +74,11 @@ const signup = () => {
             </Head>
             <div className="bg-gray-200 font-body flex flex-col w-screen items-center h-screen" >
 
-            <Link href="/">
+            {/* <Link href="/">
             <a className="w-48 mt-20 md:mt-20"><Image src={nesaLogo} alt="Nesa Logo" /></a>
-            </Link>
+            </Link> */}
+
+            <HeadLogo/>
 
             <div className="bg-white max-w-md rounded-3xl overflow-hidden shadow-lg mt-20 slideup">
                 <div className="mx-10 my-10">
