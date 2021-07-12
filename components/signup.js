@@ -70,15 +70,15 @@ const signup = () => {
                     Sign up
                 </title>
             </Head>
-            <div className="bg-gray-200 font-body flex flex-col w-screen items-center h-screen" >
+            <div className="bg-gray-200 font-body flex flex-col w-screen items-center h-full min-h-screen" >
 
             <Link href="/">
             <a className="w-48 mt-20 md:mt-20"><Image src={nesaLogo} alt="Nesa Logo" /></a>
             </Link>
 
-            <div className="bg-white max-w-md rounded-3xl overflow-hidden shadow-lg mt-20 slideup">
+            <div className="bg-white max-w-md rounded-3xl shadow-lg mt-20 slideup">
                 <div className="mx-10 my-10">
-                    <form className="pl-1" onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit}>
                         <div className="mb-4">
                         <label className="block text-gray-700 text-lg font-bold mb-2" htmlFor="username">
                             Username

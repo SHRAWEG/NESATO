@@ -43,7 +43,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
 
-      <div className="bg-gray-200 font-body flex flex-col w-screen items-center h-screen">
+      <div className="bg-gray-200 font-body flex flex-col w-screen items-center h-full min-h-screen">
         <Link href="/">
           <a className="w-48 mt-20 md:mt-20"><Image src={nesaLogo} alt="Nesa Logo" /></a>
         </Link>
@@ -59,6 +59,9 @@ export default function Home() {
         </button>
         </Link>
         </div>
+        <footer className="align-bottom">
+
+        </footer>
       </div>
     </>
     
