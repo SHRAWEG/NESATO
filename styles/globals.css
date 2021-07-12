@@ -9,6 +9,11 @@ body{
     font-style: normal;
 }
 
+.formError {
+    font-size:10px;
+    color: red;
+}
+
 @media (min-width: 320px) {
     .typewriter{
         font-size: 2rem;
