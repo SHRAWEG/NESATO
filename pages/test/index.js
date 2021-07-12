@@ -1,4 +1,10 @@
 import React from "react";
+import Head from "next/head"
+import Link from "next/link";
+import Image from "next/image";
+import nesaLogo from '../../public/img/NesaLogo.png';
+import { useState } from "react";
+import { useRouter } from "next/router";
 import fetch from 'isomorphic-unfetch';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -6,6 +12,12 @@ import * as Yup from 'yup';
   const signUp = () => {
 
     return(
+      <>
+        <Head>
+          <title>
+              Sign up
+          </title>
+        </Head>
         <Formik
           initialValues={{
             email: "",
@@ -143,6 +155,7 @@ import * as Yup from 'yup';
             </form>
           )}
         </Formik>
+        </>
       )
   }
 

@@ -3,11 +3,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import nesaLogo from '../public/img/NesaLogo.png';
-
 import HeadLogo from "../components/headLogo";
-
-
-
 import { useSession, signIn, signOut} from "next-auth/client";
 
 export default function Home() {
@@ -45,9 +41,9 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
 
-      <div className="bg-gray-200 font-body flex flex-col w-screen items-center h-screen">
-
+      <div className="bg-gray-200 font-body flex flex-col w-screen items-center h-full min-h-screen">
         <HeadLogo/>
+
 
         <div className="flex flex-col items-center justify-center">
         <h1 className="sm:text-6xl lg:text-9xl text-gray-500 lg:mt-60 md:mt-40 sm:mt-40 typewriter ">
@@ -60,6 +56,8 @@ export default function Home() {
         </button>
         </Link>
         </div>
+        <footer className="align-bottom">
+        </footer>
       </div>
     </>
     
