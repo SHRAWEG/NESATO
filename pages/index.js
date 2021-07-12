@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import nesaLogo from '../public/img/NesaLogo.png';
 
+import HeadLogo from "../components/headLogo";
+
 
 
 import { useSession, signIn, signOut} from "next-auth/client";
@@ -44,9 +46,8 @@ export default function Home() {
       </Head>
 
       <div className="bg-gray-200 font-body flex flex-col w-screen items-center h-screen">
-        <Link href="/">
-          <a className="w-48 mt-20 md:mt-20"><Image src={nesaLogo} alt="Nesa Logo" /></a>
-        </Link>
+
+        <HeadLogo/>
 
         <div className="flex flex-col items-center justify-center">
         <h1 className="sm:text-6xl lg:text-9xl text-gray-500 lg:mt-60 md:mt-40 sm:mt-40 typewriter ">
