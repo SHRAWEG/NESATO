@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Electrolize');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    font-family: 'Electrolize';
+    font-style: normal;
+}
+
+@media (min-width: 320px) {
+    .typewriter{
+        font-size: 2rem;
+        margin-top: 6rem;
+    }
+}
