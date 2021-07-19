@@ -21,7 +21,7 @@ function HomePage() {
                 Ready to JOUST?
                 </h1>
 
-                <Link href="/signup">
+                <Link href="/signin">
                     <button className="bg-transparent border border-gray-500 hover:border-yellow-500 text-gray-500 hover:text-yellow-500 font-bold py-4 px-8 rounded-full mt-16 lg:text-4xl md:text-3xl sm:text-3xl button-ani">
                 Absolutely!
                 </button>

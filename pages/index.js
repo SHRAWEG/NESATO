@@ -1,13 +1,13 @@
 import Head from "next/head";
 import React from "react";
 import Link from "next/link";
-import HomePage from "../components/HomePage";
 import { useSession, signOut} from "next-auth/client";
 import HomePageAuthenticated from "../components/HomePageAuthenticated";
+import HomePage from "../components/HomePage";
 
 export default function Home() {
 
-  const [session, loading] = useSession();
+  const [session] = useSession();
 
   console.log(session)
 

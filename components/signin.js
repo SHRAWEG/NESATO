@@ -4,12 +4,12 @@ import Link from "next/link";
 import router from "next/router";
 import HeadLogo from '../components/headLogo';
 import { useState } from "react";
-import { signIn, useSession } from "next-auth/client";
+import { providers, signIn, useSession } from "next-auth/client";
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 const SignIn = () => {
-    const [session, loading] = useSession();
+    const [session] = useSession();
     const [errorMsg, setErrorMsg] = useState();
 
     return (
@@ -39,7 +39,7 @@ const SignIn = () => {
                             .required("Please choose a password."),
                             })}
 
-                            onSubmit={async (values, {setFieldError}) => {
+                            onSubmit={async (values) => {
                                 if(!session) {
                                     try {
                                         const response = await signIn("credentials", {
@@ -128,6 +128,14 @@ const SignIn = () => {
                                 </form>
                                 )}
                         </Formik>
+                        <div className="flex flex-col items-between justify-evenly">
+                                        <button 
+                                        className="bg-gray-800 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-2 mt-6"
+                                        onClick={() => signIn("discord")}
+                                        >
+                                            Sign In with Discord
+                                        </button>
+                                    </div>
                     </div>
                 </div>
             </div>
