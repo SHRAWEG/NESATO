@@ -5,6 +5,7 @@ export default async (req,res) => {
   const {method} = req
   const { username, password, email } = req.body;
 
+
   if (method == 'POST') {
     //Connection to the database
     const {db} = await connectToDatabase();
@@ -15,7 +16,7 @@ export default async (req,res) => {
     });
 
     //Email conflict
-    const emailConflict = await await db.collection('usersprofile').findOne({
+    const emailConflict = await db.collection('usersprofile').findOne({
       email: { $regex: "^" + email + "$", $options: "i" }
     });
 
