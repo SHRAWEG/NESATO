@@ -18,6 +18,7 @@ import * as Yup from 'yup';
           </title>
         </Head>
         <div className="bg-gray-200 font-body flex flex-col w-screen items-center h-full min-h-screen" >
+          
           <HeadLogo/>
 
           <div className="bg-white max-w-md rounded-3xl shadow-lg mt-20 slideup">
