@@ -1,13 +1,15 @@
-import Head from "next/head";
+// import Head from "next/head";
 import React from "react";
-import Link from "next/link";
+// import Link from "next/link";
 import HomePage from "../components/HomePage";
-import { useSession, signOut} from "next-auth/client";
+import { useSession} from "next-auth/client";
 import HomePageAuthenticated from "../components/HomePageAuthenticated";
+
+import {connectToDatabase} from "../util/mongodb";
 
 export default function Home() {
 
-  const [session, loading] = useSession();
+  const [session] = useSession();
 
   console.log(session)
 
