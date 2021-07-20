@@ -1,9 +1,16 @@
-import React from 'react'
-import Head from 'next/head'
-import Link from 'next/link'
-import Image from 'next/dist/client/image'
+import React from 'react';
+import Link from 'next/link';
+
+import { useState } from 'react';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+
+import Head from 'next/head';
+import Image from 'next/dist/client/image';
 
 import HeadLogo from '../Head'
+import { signIn } from 'next-auth/client';
+import router from 'next/router';
 
 const Profile = () => {
     const [userInformation, setUserInformation] = useState({
@@ -12,62 +19,115 @@ const Profile = () => {
         address:"",
         gender:"",
         phone:"",
-        dob:"",
-        games:{
-            csgo:{
-                plays:false,
-                nick:"",
-            },
-            dota:{
-                plays:false,
-                nick:"",
-            },
-            pubgm:{
-                plays:false,
-                nick:"",
-            },
-            mobleg:{
-                plays:false,
-                nick:"",
-            },
-        },
-        platform:{
-            mobile:false,
-            pc:false,
-        },
+        dob:""
     })
 
-    const handleChange = async (e) => {
-        // const [firstname ,lastname, address, gender, phone, dob] = [{e.firstname, e.lastname, e.address, e.gender, e.phone, e.dob}]
-    }
-
-    const router = UseRouter();
-
-    const {firstname, lastname, address, gender, phone, dob, games, platform} = userInformation;
+    const [session] = useSession();
+    const [errorMsg, setErrorMsg] = useState();
 
     return (
         <>
-        <Head>
-            <title>
-                profile
-            </title>
             <div className = "bg-gray-200 font-body flexex-col w-screen">
+
+                {/* logo */}
                 <HeadLogo/>
-                <div>
-                    <form onSubmit = {handleSubmit}>
-                        <div>
-                            <label>
+                <Formik
+                    initialValues= {{
+                        firstname:"",
+                        lastname:"",
+                        address:"",
+                        gender:"",
+                        phone:"",
+                        dob: new Date(),
+                        // platform:{
+                        //     mobile:false,
+                        //     pc:false,
+                        // }
+                    }}
+
+                    validationSchema={
+                        Yup.object({
+                            firstname: Yup.string()
+                            .required('Please enter your First name'),
+
+                            lastname: Yup.string()
+                            .required('Please enter your Last name'),
+
+                            address: Yup.string()
+                            .required('Please enter your address'),
+
+                            gender: Yup.string()
+                            .required('Please specify your Gender'),
+
+                            phone: Yup.string()
+                            .required('Please enter your Phone number'),
+
+                            dob: Yup.date()
+                            .required('Please enter your Date of Birth'),
+                        })
+                    }
+
+                    onSubmit = {async (values) => {
+                        if(!session) {
+                            setErrorMsg(
+                                "Not logged In, Please log in to update your profile"
+                            )
+                        }
+                        else {
+                            try {
+                                const response = await fetch('components/userprofile/api/profile',{
+                                    method = 'POST',
+                                    headers: {
+                                        'Content-Type' : 'application/JSON'
+                                    },
+                                    body: JSON.stringify(values),
+                                })
+
+                                const json = await response.json();
+                                console.log(json.message);
+
+                                if (response.status == 200) {
+                                    router.replace("/");
+                                }
+
+                            } catch (error){
+                                console.log(
+                                    error
+                                );
+                                return response.error;
+                            }
+                        }
+
+                    }}
+
+                >
+
+                    {formil => (
+                        <form 
+                            noValidate
+                            onSubmit={Formik.handleSubmit}
+                        >
+                            <div>
+                            <label className="block text-gray-700 text-lg font-bold mb-2" htmlFor="firstname">
                                 First Name
                             </label>
                             <input
+                                className="shadow appearance-none border w-80 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id = "firstname"
+                                name = "firsttname"
                                 type = "text"
                                 placeholder = "First Name"
-                                value = {firstname}
-                                name = "firsttname"
-                                onchange = {handleChange}
-                                required 
+                                value = {formik.values.firstname}
+                                onchange = {formik.handleChange}
+                                onBlur={formik.handleBlur}
                             />
+                            {
+                                formik.touched.firstname && formik.errors.firstname && (
+                                    <p classnName = "text-red-500 text-sm font-medium w-80">
+                                        {formik.errors.username}
+                                    </p>
+                                )
+                            }
                         </div>
 
                         <div>
@@ -140,21 +200,11 @@ const Profile = () => {
                                 required 
                             />
                         </div>
-                        
-                        <div>
-                            <label>Medium:</label>
-                            <input type="checkbox" id= "csgo" name="games" value= "csgo" onchange = {handleChange}/><span>CS:GO</span>
-                            <input type="checkbox" id="dota2" name="games" value= "dota2" onchange = {handleChange}/><span>DOTA 2</span>
-                            <input type="checkbox" id="pubgm" name="games" value= "pubgm" onchange = {handleChange}/><span>PUBG Mobile</span>
-                            <input type="checkbox" id="mobleg" name="medium" value= "mobleg" onchange = {handleChange}/><span>Mobile Legends</span>
-                        </div>
+                        </form>
+                    )}
 
-
-
-                    </form>
-                </div>
+                </Formik>
             </div>
-        </Head>
         </>
     )
 }
