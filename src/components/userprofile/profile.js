@@ -13,6 +13,8 @@ import { signIn } from 'next-auth/client';
 import router from 'next/router';
 
 const Profile = () => {
+
+
     const [userInformation, setUserInformation] = useState({
         firstname:"",
         lastname:"",
