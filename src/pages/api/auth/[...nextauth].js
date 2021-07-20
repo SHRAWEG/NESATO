@@ -22,7 +22,7 @@ const options = {
             async authorize(credentials) {
                 //Connecting to database 
                 const { db } = await connectToDatabase();
-                const collection = await db.collection('usersprofile');
+                const collection = await db.collection('users');
 
                 const users = await collection.findOne({email: { $regex: "^" + credentials.email + "$", $options: "i" }});
 
