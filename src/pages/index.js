@@ -1,7 +1,7 @@
 import React from "react";
 import { useSession } from "next-auth/client";
-import HomePageAuthenticated from "../components/HomePageAuthenticated";
-import HomePage from "../components/HomePage";
+import HomePageAuthenticated from "../components/home/HomePageAuthenticated";
+import HomePage from "../components/home/HomePage";
 
 export default function Home() {
 

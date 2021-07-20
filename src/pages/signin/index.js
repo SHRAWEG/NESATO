@@ -1,11 +1,11 @@
 import React from "react";
-import Signup from "../components/signup";
 import { useState, useEffect } from "react";
-import Head from "next/head";
 import { getSession } from "next-auth/client";
 import { useRouter } from "next/router";
+import Signin from "../../components/authentication/signin";
 
-const SignUp = () => {
+
+const SignIn = () => {
     
     const [isLoading, setIsLoading] = useState(true);
 	const router = useRouter();
@@ -23,8 +23,8 @@ const SignUp = () => {
 	if (isLoading) return <p>Loading...</p>;
 
     return (
-        <Signup />
+        <Signin />
     )
 }
 
-export default SignUp;
+export default SignIn;

@@ -78,7 +78,7 @@ function tournament() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const res = fetch('/api/valorantScores/valoScore', {
+        const res = fetch('/api/valoScore', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -3,7 +3,7 @@ import Head from "next/head"
 import Link from "next/link";
 import router from "next/router";
 import { signIn } from "next-auth/client";
-import HeadLogo from '../components/headLogo';
+import HeadLogo from '../Header';
 import fetch from 'isomorphic-unfetch';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -12,15 +12,6 @@ import * as Yup from 'yup';
 
     return(
       <>
-        <Head>
-          <title>
-              Sign up
-          </title>
-        </Head>
-        <div className="bg-gray-200 font-body flex flex-col w-screen items-center h-full min-h-screen" >
-          
-          <HeadLogo/>
-
           <div className="bg-white max-w-md rounded-3xl shadow-lg mt-20 slideup">
             <div className="mx-10 my-10">
               <Formik
@@ -199,7 +190,6 @@ import * as Yup from 'yup';
               </Formik>
             </div>
           </div>
-        </div>
       </>
       )
   }
