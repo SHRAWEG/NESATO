@@ -11,12 +11,12 @@ export default async (req,res) => {
     const {db} = await connectToDatabase();
 
     //Username conflict
-    const usernameConflict = await db.collection('usersprofile').findOne({
+    const usernameConflict = await db.collection('users').findOne({
       username: { $regex: "^" + username + "$", $options: "i" }
     });
 
     //Email conflict
-    const emailConflict = await db.collection('usersprofile').findOne({
+    const emailConflict = await db.collection('users').findOne({
       email: { $regex: "^" + email + "$", $options: "i" }
     });
 
@@ -35,7 +35,7 @@ export default async (req,res) => {
 
         //Inserting into the database
         const user = await db
-          .collection('usersprofile')
+          .collection('users')
           .insertOne({ email, password: hashedPassword, username })
           .then(({ ops }) => ops[0]);
 
