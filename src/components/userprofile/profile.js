@@ -6,6 +6,8 @@ import Image from 'next/dist/client/image'
 import HeadLogo from '../Head'
 
 const Profile = () => {
+
+
     const [userInformation, setUserInformation] = useState({
         firstname:"",
         lastname:"",
