@@ -6,9 +6,7 @@ export default async (req, res) => {
     const { 
         match_id, 
         winner,
- 
         t1, 
- 
         t2,
 
         t1p1, 
@@ -19,6 +17,7 @@ export default async (req, res) => {
         t1p1_agent,
 
         t1p2, 
+
         t1p2_kills, 
         t1p2_assists, 
         t1p2_deaths, 
@@ -186,4 +185,12 @@ export default async (req, res) => {
 
         res.status(200).json({message: "success"});
     }
+
+    // if (method == 'GET') {
+    //     // const seeMatch = req.body.match_id
+
+    //     const details = score.collection('tournaments').find()
+    //     return details.json();
+    //     console.log(details)
+    // }
 }
