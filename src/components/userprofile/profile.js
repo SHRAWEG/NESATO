@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/dist/client/image'
 
-import HeadLogo from './headLogo'
+import HeadLogo from '../Head'
 
 const Profile = () => {
     const [userInformation, setUserInformation] = useState({

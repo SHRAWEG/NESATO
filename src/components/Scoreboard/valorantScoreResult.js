@@ -1,5 +1,5 @@
 import React from 'react'
-import { connectToDatabase } from '../util/mongodb'
+import { connectToDatabase } from '../../utils/mongodb'
 
 function tournamentResult( {data} ) {
     return (
