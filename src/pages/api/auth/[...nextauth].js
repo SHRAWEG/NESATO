@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
-import { connectToDatabase } from "../../../util/mongodb";
-import { verifyPassword } from "../../../lib/auth/verifyPassword";
+import { connectToDatabase } from "../../../utils/mongodb";
+import { verifyPassword } from "../../../hooks/verifyPassword";
 
 const options = {
     providers: [

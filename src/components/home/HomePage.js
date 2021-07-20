@@ -1,20 +1,14 @@
 import Head from "next/head";
 import React from "react";
 import Link from "next/link";
-import HeadLogo from "./headLogo";
+import Header from "../Header";
 
 function HomePage() {
     return (
         <>
-            <Head>
-                <title>NESA</title>
-                <meta name="description" content="Nesa App" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            </Head>
+            <Header />
 
-            <div className="bg-gray-200 font-body flex flex-col w-screen items-center h-full min-h-screen">
-                <HeadLogo/>
-
+            <div>
 
                 <div className="flex flex-col items-center justify-center">
                 <h1 className="sm:text-6xl lg:text-9xl text-gray-500 lg:mt-60 md:mt-40 sm:mt-40 typewriter ">
