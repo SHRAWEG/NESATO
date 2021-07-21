@@ -1,9 +1,8 @@
 import { connectToDatabase } from "../../../utils/mongodb";
-import { useSession } from "next-auth/client";
+import { getSession } from "next-auth/client";
 
 export default async (req, res) => {
-    const [session] = useSession();
-
+    const session = await getSession({ req })
     const {method} = req;
     const {
         firstname,
@@ -11,8 +10,7 @@ export default async (req, res) => {
         address,
         gender,
         phone,
-        // dob,
-
+        dob,
     } = req.body
 
     if (method == 'POST') {
@@ -26,7 +24,7 @@ export default async (req, res) => {
                     address,
                     gender,
                     phone,
-                    // dob,
+                    dob,
                 }
             }
         )
