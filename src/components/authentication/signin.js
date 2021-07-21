@@ -1,12 +1,15 @@
 import React from "react";
-import Head from "next/head"
+
 import Link from "next/link";
 import router from "next/router";
-import HeadLogo from '../Header';
+
 import { useState } from "react";
 import { providers, signIn, useSession } from "next-auth/client";
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+
+import Head from "next/head"
+import HeadLogo from '../Header';
 
 const SignIn = () => {
     const [session] = useSession();
@@ -21,6 +24,7 @@ const SignIn = () => {
                         email: "",
                         password: "",
                         }}
+                        
                         validationSchema={Yup.object({
                         email: Yup.string()
                         .email('Please enter valid email address')
