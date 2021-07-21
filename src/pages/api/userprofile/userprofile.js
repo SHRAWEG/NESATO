@@ -11,8 +11,6 @@ export default async (req, res) => {
         address,
         gender,
         phone,
-        // dob,
-
     } = req.body
 
     if (method == 'POST') {

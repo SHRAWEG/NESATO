@@ -60,10 +60,11 @@ const Profile = () => {
                                         'Content-Type' : 'application/JSON'
                                     },
                                     body: JSON.stringify(values),
-                                    session: JSON.stringify(session.user.email),
+                                    // session: JSON.stringify(session.user.email),
                                 })
 
                                 const json = await response.json();
+
                                 console.log(json.message);
 
                                 if (response.status == 200) {
@@ -87,146 +88,152 @@ const Profile = () => {
                             onSubmit={formik.handleSubmit}
                         >
                             <div>
-                            <label className="block text-gray-700 text-lg font-bold mb-2" htmlFor="firstname">
-                                First Name
-                            </label>
-                            <input
+
+                                <label className="block text-gray-700 text-lg font-bold mb-2" htmlFor="firstname">
+                                    First Name
+                                </label>
+                                <input
+                                    className="shadow appearance-none border w-80 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id = "firstname"
+                                    name = "firstname"
+                                    type = "text"
+                                    placeholder = "First Name"
+                                    onChange = {formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    value = {formik.values.firstname}
+                                />
+                                {
+                                    formik.touched.firstname && formik.errors.firstname && (
+                                        <p className = "text-red-500 text-sm font-medium w-80">
+                                            {formik.errors.firstname}
+                                        </p>
+                                    )
+                                }
+
+                            </div>
+
+                            <div>
+
+                                <label>
+                                    Last Name
+                                </label>
+                                <input
                                 className="shadow appearance-none border w-80 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id = "firstname"
-                                name = "firstname"
-                                type = "text"
-                                placeholder = "First Name"
-                                onChange = {formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value = {formik.values.firstname}
-                            />
-                            {
-                                formik.touched.firstname && formik.errors.firstname && (
-                                    <p className = "text-red-500 text-sm font-medium w-80">
-                                        {formik.errors.firstname}
-                                    </p>
-                                )
-                            }
-                        </div>
+                                    id = "lastname"
+                                    name = "lastname"
+                                    type = "text"
+                                    placeholder = "Last Name"
+                                    value = {formik.values.lastname}
+                                    onChange = {formik.handleChange}
+                                    onBlur = {formik.handleBlur}
+                                />
+                                {
+                                    formik.touched.lastname && formik.errors.lastname && (
+                                        <p className = "text-red-500 text-sm font-medium w-80">
+                                            {formik.errors.lastname}
+                                        </p>
+                                    )
+                                }
 
-                        <div>
-                            <label>
-                                Last Name
-                            </label>
-                            <input
-                            className="shadow appearance-none border w-80 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id = "lastname"
-                                name = "lastname"
-                                type = "text"
-                                placeholder = "Last Name"
-                                value = {formik.values.lastname}
-                                onChange = {formik.handleChange}
-                                onBlur = {formik.handleBlur}
-                            />
-                            {
-                                formik.touched.lastname && formik.errors.lastname && (
-                                    <p className = "text-red-500 text-sm font-medium w-80">
-                                        {formik.errors.lastname}
-                                    </p>
-                                )
-                            }
-                        </div>
+                            </div>
 
-                        <div>
-                            <label>
-                                Address
-                            </label>
-                            <input
-                                id = "address"
-                                name = "address"
-                                type = "text"
-                                placeholder = "Address"
-                                value = {formik.values.address}
-                                onChange = {formik.handleChange}
-                                onBlur = {formik.handleBlur}
-                            />
-                            {
-                                formik.touched.address && formik.errors.address && (
-                                    <p className = "text-red-500 text-sm font-medium w-80">
-                                        {formik.errors.address}
-                                    </p>
-                                )
-                            }
-                        </div>
+                            <div>
 
-                        <div>
-                            <label>
-                                Phone Number
-                            </label>
-                            <input
-                                id = "phone"
-                                name = "phone"
-                                type = "text"
-                                placeholder = "Number"
-                                value = {formik.values.phone}
-                                onChange = {formik.handleChange}
-                                onBlur = {formik.handleBlur}
-                            />
-                            {
-                                formik.touched.phone && formik.errors.phone && (
-                                    <p className = "text-red-500 text-sm font-medium w-80">
-                                        {formik.errors.phone}
-                                    </p>
-                                )
-                            }
-                        </div>
+                                <label>
+                                    Address
+                                </label>
+                                <input
+                                    id = "address"
+                                    name = "address"
+                                    type = "text"
+                                    placeholder = "Address"
+                                    value = {formik.values.address}
+                                    onChange = {formik.handleChange}
+                                    onBlur = {formik.handleBlur}
+                                />
+                                {
+                                    formik.touched.address && formik.errors.address && (
+                                        <p className = "text-red-500 text-sm font-medium w-80">
+                                            {formik.errors.address}
+                                        </p>
+                                    )
+                                }
+                            </div>
 
-                        <div>
-                            <label>
-                                Gender
-                            </label>
-                            <select 
-                            id = "gender"
-                            name = "gender"
-                            placeholder = "Gender"
-                            value = {formik.values.gender}
-                            onChange = {formik.handleChange} 
-                            >
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="others">Others</option>
-                            </select>
-                            {
-                                formik.touched.gender && formik.errors.number && (
-                                    <p className = "text-red-500 text-sm font-medium w-80">
-                                        {formik.errors.gender}
-                                    </p>
-                                )
-                            }
+                            <div>
+                                <label>
+                                    Phone Number
+                                </label>
+                                <input
+                                    id = "phone"
+                                    name = "phone"
+                                    type = "text"
+                                    placeholder = "Number"
+                                    value = {formik.values.phone}
+                                    onChange = {formik.handleChange}
+                                    onBlur = {formik.handleBlur}
+                                />
+                                {
+                                    formik.touched.phone && formik.errors.phone && (
+                                        <p className = "text-red-500 text-sm font-medium w-80">
+                                            {formik.errors.phone}
+                                        </p>
+                                    )
+                                }
+                            </div>
 
-                        </div>
+                            <div>
+                                <label>
+                                    Gender
+                                </label>
+                                <select 
+                                id = "gender"
+                                name = "gender"
+                                placeholder = "Gender"
+                                value = {formik.values.gender}
+                                onChange = {formik.handleChange} 
+                                >
+                                    <option value=""> Selecy your gender </option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="others">Others</option>
+                                </select>
+                                {
+                                    formik.touched.gender && formik.errors.number && (
+                                        <p className = "text-red-500 text-sm font-medium w-80">
+                                            {formik.errors.gender}
+                                        </p>
+                                    )
+                                }
 
-                        {/* <div>
-                            <label>
-                                Date of Birth
-                            </label>
-                            <input
-                                id = "dob"
-                                name = "dob"
-                                type = "date"
-                                placeholder = "dob"
-                                value = {formik.values.dob}
-                                onChange = {formik.handleChange}
-                                onBlur = {formik.handleBlur}
-                            />
-                            {
-                                formik.touched.dob && formik.errors.dob && (
-                                    <p className = "text-red-500 text-sm font-medium w-80">
-                                        {formik.errors.dob}
-                                    </p>
-                                )
-                            }
-                        </div> */}
-                        <div className="flex flex-col items-between justify-evenly">
-                        <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-2 mt-6" type="submit">
-                            Submit
-                        </button>
-                        </div>
+                            </div>
+
+                            {/* <div>
+                                <label>
+                                    Date of Birth
+                                </label>
+                                <input
+                                    id = "dob"
+                                    name = "dob"
+                                    type = "date"
+                                    placeholder = "dob"
+                                    value = {formik.values.dob}
+                                    onChange = {formik.handleChange}
+                                    onBlur = {formik.handleBlur}
+                                />
+                                {
+                                    formik.touched.dob && formik.errors.dob && (
+                                        <p className = "text-red-500 text-sm font-medium w-80">
+                                            {formik.errors.dob}
+                                        </p>
+                                    )
+                                }
+                            </div> */}
+                            <div className="flex flex-col items-between justify-evenly">
+                            <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-2 mt-6" type="submit">
+                                Submit
+                            </button>
+                            </div>
                         </form>
                     )}
 
