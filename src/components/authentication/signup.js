@@ -1,9 +1,7 @@
 import React from "react";
-import Head from "next/head"
 import Link from "next/link";
 import router from "next/router";
 import { signIn } from "next-auth/client";
-import HeadLogo from '../Header';
 import fetch from 'isomorphic-unfetch';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
