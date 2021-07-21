@@ -1,15 +1,11 @@
 import React from "react";
-
+import { useSession } from "next-auth/client";
+import { signIn } from "next-auth/client";
 import Link from "next/link";
 import router from "next/router";
-
 import { useState } from "react";
-import { providers, signIn, useSession } from "next-auth/client";
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-
-import Head from "next/head"
-import HeadLogo from '../Header';
 
 const SignIn = () => {
     const [session] = useSession();
