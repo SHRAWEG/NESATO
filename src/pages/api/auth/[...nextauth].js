@@ -12,6 +12,7 @@ const options = {
         Providers.Discord({
             clientId: process.env.DISCORD_ID,
             clientSecret: process.env.DISCORD_SECRET
+            
         }),
         Providers.Credentials ({
             name: "Credentials",
