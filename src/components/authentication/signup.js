@@ -69,6 +69,7 @@ import * as Yup from 'yup';
 
                       console.log(json.message);
 
+                      //auto signIn
                       if (response.status === 200) {
                         await signIn("credentials", {
                           redirect: false,
