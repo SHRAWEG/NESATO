@@ -38,15 +38,15 @@ const Teamprofile = () => {
                     onSubmit = {async (values) => {
 
                             try {
-                                const response = await fetch('/api/teamProfile/teamprofile', {
+                                const response = await fetch('/api/teamProfile/teamprofileapi', {
                                     method  : 'POST',
                                     headers : {
                                         'Content-Type' : 'application/JSON'
                                     },
+                                    body: JSON.stringify(values),
                                 })
 
                                 const json = await response.json();
-
                                 console.log(json.message);
 
                                 if (response.status == 200) {

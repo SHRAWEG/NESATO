@@ -1,29 +1,21 @@
 import React from 'react';
-import { useState } from 'react';
 import router from "next/router";
 import { Formik } from 'formik';
 import fetch from 'isomorphic-unfetch';
 import * as Yup from 'yup';
-import { useSession } from 'next-auth/client';
 
-const Profile = () => {
-    const [session] = useSession();
-    const [errorMsg, setErrorMsg] = useState();
-
+function Profile(props) {
     return (
         <>
-            {session && (
-                <div>{session.user.email}</div>
-            )}
             <div className = "bg-gray-200 font-body flex-col w-screen">
                 <Formik
                     initialValues= {{
-                        firstname:"",
-                        lastname:"",
-                        address:"",
-                        gender:"",
-                        phone:"",
-                        // dob: new Date(),
+                        firstname: props.firstname,
+                        lastname: props.lastname,
+                        address: props.address,
+                        gender: props.gender,
+                        phone: props.phone,
+                        dob: props.dob,
                     }}
 
                     validationSchema={
@@ -43,41 +35,33 @@ const Profile = () => {
                             phone: Yup.string()
                             .required('Please enter your Phone number'),
 
-                            // dob: Yup.date()
-                            // .required('Please enter your Date of Birth'),
+                            dob: Yup.date()
+                            .required('Please enter your Date of Birth'),
                         })
                     }
 
-                    onSubmit = {async (values) => {
-                        if(!session) {
-                            redirect('/login')
-                        }
-                        else {
-                            try {
-                                const response = await fetch('/api/userprofile/userprofile',{
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type' : 'application/JSON'
-                                    },
-                                    body: JSON.stringify(values),
-                                    // session: JSON.stringify(session.user.email),
-                                })
+                    onSubmit = { async (values) => {
+                        try {
+                            const response = await fetch('/api/userprofile/userprofile',{
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type' : 'application/JSON'
+                                },
+                                body: JSON.stringify(values),
+                            })
 
-                                const json = await response.json();
+                            const json = await response.json();
+                            console.log(json.message);
 
-                                console.log(json.message);
-
-                                if (response.status == 200) {
-                                    router.replace("/");
-                                }
-
-                            } catch (error){
-                                console.log(
-                                    error
-                                );
+                            if (response.status == 200) {
+                                router.replace("/");
                             }
-                        }
 
+                        } catch (error){
+                            console.log(
+                                error
+                            );
+                        }
                     }}
 
                 >
@@ -112,128 +96,128 @@ const Profile = () => {
 
                             </div>
 
-                            <div>
-
-                                <label>
-                                    Last Name
-                                </label>
-                                <input
+                        <div>
+                            <label className="block text-gray-700 text-lg font-bold mb-2">
+                                Last Name
+                            </label>
+                            <input
                                 className="shadow appearance-none border w-80 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    id = "lastname"
-                                    name = "lastname"
-                                    type = "text"
-                                    placeholder = "Last Name"
-                                    value = {formik.values.lastname}
-                                    onChange = {formik.handleChange}
-                                    onBlur = {formik.handleBlur}
-                                />
-                                {
-                                    formik.touched.lastname && formik.errors.lastname && (
-                                        <p className = "text-red-500 text-sm font-medium w-80">
-                                            {formik.errors.lastname}
-                                        </p>
-                                    )
-                                }
+                                id = "lastname"
+                                name = "lastname"
+                                type = "text"
+                                placeholder = "Last Name"
+                                value = {formik.values.lastname}
+                                onChange = {formik.handleChange}
+                                onBlur = {formik.handleBlur}
+                            />
+                            {
+                                formik.touched.lastname && formik.errors.lastname && (
+                                    <p className = "text-red-500 text-sm font-medium w-80">
+                                        {formik.errors.lastname}
+                                    </p>
+                                )
+                            }
+                        </div>
 
-                            </div>
+                        <div>
+                            <label className="block text-gray-700 text-lg font-bold mb-2">
+                                Address
+                            </label>
+                            <input
+                                className="shadow appearance-none border w-80 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id = "address"
+                                name = "address"
+                                type = "text"
+                                placeholder = "Address"
+                                value = {formik.values.address}
+                                onChange = {formik.handleChange}
+                                onBlur = {formik.handleBlur}
+                            />
+                            {
+                                formik.touched.address && formik.errors.address && (
+                                    <p className = "text-red-500 text-sm font-medium w-80">
+                                        {formik.errors.address}
+                                    </p>
+                                )
+                            }
+                        </div>
 
-                            <div>
+                        <div>
+                            <label className="block text-gray-700 text-lg font-bold mb-2">
+                                Phone Number
+                            </label>
+                            <input
+                                className="shadow appearance-none border w-80 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id = "phone"
+                                name = "phone"
+                                type = "text"
+                                placeholder = "Number"
+                                value = {formik.values.phone}
+                                onChange = {formik.handleChange}
+                                onBlur = {formik.handleBlur}
+                            />
+                            {
+                                formik.touched.phone && formik.errors.phone && (
+                                    <p className = "text-red-500 text-sm font-medium w-80">
+                                        {formik.errors.phone}
+                                    </p>
+                                )
+                            }
+                        </div>
 
-                                <label>
-                                    Address
-                                </label>
-                                <input
-                                    id = "address"
-                                    name = "address"
-                                    type = "text"
-                                    placeholder = "Address"
-                                    value = {formik.values.address}
-                                    onChange = {formik.handleChange}
-                                    onBlur = {formik.handleBlur}
-                                />
-                                {
-                                    formik.touched.address && formik.errors.address && (
-                                        <p className = "text-red-500 text-sm font-medium w-80">
-                                            {formik.errors.address}
-                                        </p>
-                                    )
-                                }
-                            </div>
-
-                            <div>
-                                <label>
-                                    Phone Number
-                                </label>
-                                <input
-                                    id = "phone"
-                                    name = "phone"
-                                    type = "text"
-                                    placeholder = "Number"
-                                    value = {formik.values.phone}
-                                    onChange = {formik.handleChange}
-                                    onBlur = {formik.handleBlur}
-                                />
-                                {
-                                    formik.touched.phone && formik.errors.phone && (
-                                        <p className = "text-red-500 text-sm font-medium w-80">
-                                            {formik.errors.phone}
-                                        </p>
-                                    )
-                                }
-                            </div>
-
-                            <div>
-                                <label>
-                                    Gender
-                                </label>
-                                <select 
+                        <div>
+                            <label className="block text-gray-700 text-lg font-bold mb-2">
+                                Gender
+                            </label>
+                            <select 
+                                className="shadow appearance-none border w-80 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id = "gender"
                                 name = "gender"
                                 placeholder = "Gender"
                                 value = {formik.values.gender}
                                 onChange = {formik.handleChange} 
-                                >
-                                    <option value=""> Selecy your gender </option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                    <option value="others">Others</option>
-                                </select>
-                                {
-                                    formik.touched.gender && formik.errors.number && (
-                                        <p className = "text-red-500 text-sm font-medium w-80">
-                                            {formik.errors.gender}
-                                        </p>
-                                    )
-                                }
+                            >
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="others">Others</option>
+                            </select>
+                            {
+                                formik.touched.gender && formik.errors.number && (
+                                    <p className = "text-red-500 text-sm font-medium w-80">
+                                        {formik.errors.gender}
+                                    </p>
+                                )
+                            }
 
-                            </div>
+                        </div>
 
-                            {/* <div>
-                                <label>
-                                    Date of Birth
-                                </label>
-                                <input
-                                    id = "dob"
-                                    name = "dob"
-                                    type = "date"
-                                    placeholder = "dob"
-                                    value = {formik.values.dob}
-                                    onChange = {formik.handleChange}
-                                    onBlur = {formik.handleBlur}
-                                />
-                                {
-                                    formik.touched.dob && formik.errors.dob && (
-                                        <p className = "text-red-500 text-sm font-medium w-80">
-                                            {formik.errors.dob}
-                                        </p>
-                                    )
-                                }
-                            </div> */}
-                            <div className="flex flex-col items-between justify-evenly">
-                            <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-2 mt-6" type="submit">
-                                Submit
-                            </button>
-                            </div>
+                        <div>
+                            <label className="block text-gray-700 text-lg font-bold mb-2">
+                                Date of Birth
+                            </label>
+                            <input
+                                className="shadow appearance-none border w-80 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id = "dob"
+                                name = "dob"
+                                type = "date"
+                                placeholder = "dob"
+                                value = {formik.values.dob}
+                                onChange = {formik.handleChange}
+                                onBlur = {formik.handleBlur}
+                            />
+                            {
+                                formik.touched.dob && formik.errors.dob && (
+                                    <p className = "text-red-500 text-sm font-medium w-80">
+                                        {formik.errors.dob}
+                                    </p>
+                                )
+                            }
+                        </div>
+                        <div className="flex flex-col items-between justify-evenly">
+                        <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-2 mt-6" type="submit">
+                            Submit
+                        </button>
+                        </div>
                         </form>
                     )}
 
