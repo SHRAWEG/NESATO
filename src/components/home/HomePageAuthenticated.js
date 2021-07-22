@@ -11,26 +11,22 @@ function HomePageAuthenticated( {} ) {
     return (
         <>
             <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css" />
-            <div className="flex">
+            <div className="flex flex-row w-full bg-white rounded-3xl h-screen">
             <div className="">
-                <div className="min-h-screen flex flex-row w-full">
-                    <div className="flex flex-col w-96 bg-white max-w-sm shadow-md py-8 px-10 md:px-8 rounded-md">
+                <div className="flex flex-row w-full h-screen">
+                    <div className="flex flex-col w-72 py-8 px-10 md:px-8 border-r-2 border-gray-300 mt-5 mb-5">
                         <h1 className="font-medium text-4xl text-center mb-2">Profile</h1>
                         <div className="flex flex-col md:flex-row gap-6 md:gap-8">
                             <div className="flex flex-col text-center md:text-left">
-                                {data ? (
+                                {data && (
                                     <>
                                         <div className="font-medium text-lg text-gray-800">{data.firstname} {data.lastname}</div>
+                                        {!data.firstname && (
+                                            <div className="font-medium text-lg text-gray-800">Please update your profile</div>
+                                        )}
                                         <div className="text-gray-500 mb-3 whitespace-nowrap">{data.username}</div>
                                     </>
-                                ):(
-                                    <>
-                                        <div className="font-medium text-lg text-gray-800">Full Name</div>
-                                        <div className="text-gray-500 mb-3 whitespace-nowrap">Nickname</div>
-                                    </>
-                                )
-                                }
-                                
+                                )}
                             </div>
                         </div>
                         <Link href="/userprofile">
