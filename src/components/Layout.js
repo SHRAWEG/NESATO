@@ -8,9 +8,9 @@ export default function Layout({ children }) {
     <>
         <Header />
         <main className="bg-gray-200 font-body flex flex-col w-full items-center h-full min-h-screen">
-            <Link href="/">
-                <a className="w-48 mt-6"><Image src={nesaLogo} alt="Nesa Logo" /></a>
-            </Link>
+          <Link href="/">
+              <a className="w-48 mt-6"><Image src={nesaLogo} alt="Nesa Logo" /></a>
+          </Link>
           {children}
         </main>
     </>

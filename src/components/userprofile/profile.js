@@ -6,8 +6,8 @@ import * as Yup from 'yup';
 
 function Profile(props) {
     return (
-        <>
-            <div className = "bg-gray-200 font-body flex-col w-screen">
+        <div className="">
+            <div className ="flex flex-col bg-white p-16 rounded-3xl shadow-2xl">
                 <Formik
                     initialValues= {{
                         firstname: props.firstname,
@@ -76,36 +76,34 @@ function Profile(props) {
                             onSubmit={formik.handleSubmit}
                         >
                             <div>
-
-                                <label className="block text-gray-700 text-lg font-bold mb-2" htmlFor="firstname">
-                                    First Name
-                                </label>
-                                <input
-                                    className="shadow appearance-none border w-80 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    id = "firstname"
-                                    name = "firstname"
-                                    type = "text"
-                                    placeholder = "First Name"
-                                    onChange = {formik.handleChange}
-                                    onBlur={formik.handleBlur}
-                                    value = {formik.values.firstname}
-                                />
-                                {
-                                    formik.touched.firstname && formik.errors.firstname && (
-                                        <p className = "text-red-500 text-sm font-medium w-80">
-                                            {formik.errors.firstname}
-                                        </p>
-                                    )
-                                }
-
-                            </div>
+                            <label className="block text-gray-700 text-lg font-bold mb-2" htmlFor="firstname">
+                                First Name
+                            </label>
+                            <input
+                                className="shadow appearance-none border w-80 rounded-md py-2 px-3 mb-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id = "firstname"
+                                name = "firstname"
+                                type = "text"
+                                placeholder = "First Name"
+                                onChange = {formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value = {formik.values.firstname}
+                            />
+                            {
+                                formik.touched.firstname && formik.errors.firstname && (
+                                    <p className = "text-red-500 text-sm font-medium w-80">
+                                        {formik.errors.firstname}
+                                    </p>
+                                )
+                            }
+                        </div>
 
                         <div>
                             <label className="block text-gray-700 text-lg font-bold mb-2">
                                 Last Name
                             </label>
                             <input
-                                className="shadow appearance-none border w-80 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                className="shadow appearance-none border w-80 rounded-md py-2 px-3 mb-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id = "lastname"
                                 name = "lastname"
                                 type = "text"
@@ -128,7 +126,7 @@ function Profile(props) {
                                 Address
                             </label>
                             <input
-                                className="shadow appearance-none border w-80 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                className="shadow appearance-none border w-80 rounded-md py-2 px-3 mb-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id = "address"
                                 name = "address"
                                 type = "text"
@@ -151,7 +149,7 @@ function Profile(props) {
                                 Phone Number
                             </label>
                             <input
-                                className="shadow appearance-none border w-80 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                className="shadow appearance-none border w-80 rounded-md py-2 px-3 mb-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id = "phone"
                                 name = "phone"
                                 type = "text"
@@ -174,7 +172,7 @@ function Profile(props) {
                                 Gender
                             </label>
                             <select 
-                                className="shadow appearance-none border w-80 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                className="shadow appearance-none border w-80 rounded-md py-2 px-3 mb-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id = "gender"
                                 name = "gender"
                                 placeholder = "Gender"
@@ -200,7 +198,7 @@ function Profile(props) {
                                 Date of Birth
                             </label>
                             <input
-                                className="shadow appearance-none border w-80 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                className="shadow appearance-none border w-80 rounded-md py-2 px-3 mb-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id = "dob"
                                 name = "dob"
                                 type = "date"
@@ -227,7 +225,7 @@ function Profile(props) {
 
                 </Formik>
             </div>
-        </>
+        </div>
     )
 }
 
