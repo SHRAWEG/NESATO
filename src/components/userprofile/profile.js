@@ -33,6 +33,10 @@ function Profile(props) {
                             .required('Please specify your Gender'),
 
                             phone: Yup.string()
+                            .matches(
+                                /^\(?([0-9]{10})\)?$/,
+                                "Invalid Phone number"
+                            )
                             .required('Please enter your Phone number'),
 
                             dob: Yup.date()
