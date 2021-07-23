@@ -20,7 +20,6 @@ const Teamprofile = () => {
             <div>
                 <Formik
                     initialValues = {{
-                        // team_id = 0,
                         team_name : "",
                         team_tag : "",
                     }} 
