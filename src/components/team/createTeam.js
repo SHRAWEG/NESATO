@@ -1,27 +1,28 @@
 import React from 'react';
-import { useSession } from "next-auth/client";
 import { Formik } from 'formik';
 import fetch from 'isomorphic-unfetch';
 import router from 'next/router';
 import * as Yup from 'yup';
 
 
-const Teamprofile = () => {
-    const [session] = useSession();
+const Teamprofile = (props) => {
+    let options = [
+    ]
+
+    for(let i in props.users) {
+        options.push({
+            value: props.users[i].email, label: props.users[i].email
+        })
+    }
 
     return (
         <>
-            {session && (
-                <div>
-                    {session.user.email}
-                </div>
-            )}
-
-            <div>
+            <div className ="flex flex-col bg-white p-16 rounded-3xl shadow-2xl">
                 <Formik
                     initialValues = {{
                         team_name : "",
                         team_tag : "",
+                        users: []
                     }} 
                     
                     validationSchema = {
@@ -30,14 +31,22 @@ const Teamprofile = () => {
                             .required("Please enter your Team Name"),
 
                             team_tag: Yup.string()
-                            .required("Please enter your Team Tag")
+                            .required("Please enter your Team Tag"),
+                            
+                            users: Yup.array()
+                            .of(
+                                Yup.object().shape({
+                                label: Yup.string().required(),
+                                value: Yup.string().required(),
+                                })
+                            )
                         })
                     }
 
                     onSubmit = {async (values) => {
 
                             try {
-                                const response = await fetch('/api/teamProfile/teamprofileapi', {
+                                const response = await fetch('/api/team/createTeamApi', {
                                     method  : 'POST',
                                     headers : {
                                         'Content-Type' : 'application/JSON'
@@ -65,11 +74,18 @@ const Teamprofile = () => {
                             onSubmit = {formik.handleSubmit}
                         >
                             <div>
-                                <label className="block text-gray-700 text-lg font-bold mb-2" htmlFor="firstname">
+                                <label className="block text-gray-700 text-lg font-bold" htmlFor="firstname">
                                     Team / Clan Name
                                 </label>
+                                {
+                                    formik.touched.team_name && formik.errors.team_name && (
+                                        <p className = "text-red-500 text-sm font-medium w-80">
+                                            {formik.errors.team_name}
+                                        </p>
+                                    )
+                                }
                                 <input
-                                    className="shadow appearance-none border w-80 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appearance-none border w-80 rounded-md py-2 px-3 mb-6 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id = "team_name"
                                     name = "team_name"
                                     type = "text"
@@ -78,21 +94,22 @@ const Teamprofile = () => {
                                     onBlur={formik.handleBlur}
                                     value = {formik.values.team_name}
                                 />
-                                {
-                                    formik.touched.team_name && formik.errors.team_name && (
-                                        <p className = "text-red-500 text-sm font-medium w-80">
-                                            {formik.errors.team_name}
-                                        </p>
-                                    )
-                                }
+                                
                             </div>
 
                             <div>
-                                <label className="block text-gray-700 text-lg font-bold mb-2" htmlFor="firstname">
+                                <label className="block text-gray-700 text-lg font-bold" htmlFor="firstname">
                                     Team / Clan Tag
                                 </label>
+                                {
+                                    formik.touched.team_name && formik.errors.team_name && (
+                                        <p className = "text-red-500 text-sm font-medium w-80">
+                                            {formik.errors.team_tag}
+                                        </p>
+                                    )
+                                }
                                 <input
-                                    className="shadow appearance-none border w-80 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appearance-none border w-80 rounded-md py-2 px-3 mb-6 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id = "team_tag"
                                     name = "team_tag"
                                     type = "text"
@@ -101,21 +118,25 @@ const Teamprofile = () => {
                                     onBlur={formik.handleBlur}
                                     value = {formik.values.team_tag}
                                 />
-                                {
-                                    formik.touched.team_name && formik.errors.team_name && (
-                                        <p className = "text-red-500 text-sm font-medium w-80">
-                                            {formik.errors.team_tag}
-                                        </p>
-                                    )
-                                }
+                                
+                            </div>
 
-
+                            <div>
+                                <label className="block text-gray-700 text-lg font-bold mb-2" htmlFor="firstname">
+                                    Add team members
+                                </label>
+                                <input
+                                    className="shadow appearance-none border w-80 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    type="text"
+                                    placeholder="Search.."
+                                    name="search"
+                                />
                             </div>
 
                             <div className="flex flex-col items-between justify-evenly">
-                            <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-2 mt-6" type="submit">
-                                Create Team
-                            </button>
+                                <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-2 mt-6" type="submit">
+                                    Create Team
+                                </button>
                             </div>
 
                         </form>
@@ -123,6 +144,7 @@ const Teamprofile = () => {
                     )}
 
                 </Formik>
+
             </div>
         </>
     )

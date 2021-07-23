@@ -32,10 +32,18 @@ function HomePageAuthenticated( {} ) {
                         <Link href="/userprofile">
                             <button className="mt-2 rounded-full py-2 bg-yellow-400 text-gray-600 hover:bg-blue-300 font-semibold">Update</button>
                         </Link>
-
-                        <Link href="/teamprofile">
-                            <button className="mt-2 rounded-full py-2 bg-yellow-400 text-gray-600 hover:bg-blue-300 font-semibold">Create a Team</button>
-                        </Link>
+                        
+                        {data && (
+                            !(data.team_name) ? (
+                                <Link href="/team/createteam">
+                                    <button className="mt-2 rounded-full py-2 bg-yellow-400 text-gray-600 hover:bg-blue-300 font-semibold">Create a Team</button>
+                                </Link>
+                            ):
+                            (
+                                data.team_name
+                            )
+                        )}
+                        
                         
                     </div>
                 </div>
