@@ -5,6 +5,7 @@ import { getSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
+
 const userProfile = () => {
     const [isLoading , setIsLoading] = useState(true);
     const router = useRouter();
@@ -17,7 +18,7 @@ const userProfile = () => {
     {
         getSession().then((session) =>{
             if(!session) {
-                router.replace('/login')
+                router.replace('/signin')
             } else {
                 setIsLoading(false);
             }
