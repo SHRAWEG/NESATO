@@ -24,7 +24,7 @@ export default async (req, res) => {
             {email : session.user.email},
             {
                 $set:{
-                    
+                    team_name,
                 }
             }
         )
