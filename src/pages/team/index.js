@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from "react";
-import { getSession } from "next-auth/client";
+import { getSession, session } from "next-auth/client";
 import {useRouter} from "next/router";
 import { connectToDatabase } from "../../utils/mongodb";
 import TeamProfile from '../../components/team/TeamProfile';

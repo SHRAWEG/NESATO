@@ -1,28 +1,31 @@
+import { useSession } from 'next-auth/client';
 import React from 'react';
 import { useState } from 'react';
 
 function TeamProfile(props) {
-    const [buttonStatus, setButtonStatus] = useState('Invite')
-
     const [searchEmail, setSearchEmail] = useState('')
-
+            
     const handleInvite = async (e) => {
         const user = e.target.value
-
+        console.log({user: user})
         try {
             const response = await fetch('/api/team/inviteapi',{
                 method: 'POST',
                 headers: {
                     'Content-Type' : 'application/JSON'
                 },
-                body: JSON.stringify(user),
+                body: JSON.stringify({user: user}),
             })
 
             const json = await response.json();
             console.log(json.message);
 
             if (response.status == 200) {
-                setButtonStatus('Invited')
+                alert('Invitation successfully sent')
+            }
+
+            else {
+                alert(json.message)
             }
 
         } catch (error){
@@ -31,7 +34,7 @@ function TeamProfile(props) {
             );
         }
     }
-
+        
     return (
         <div>
             <label className="block text-gray-700 text-lg font-bold mb-2" htmlFor="firstname">
@@ -49,17 +52,17 @@ function TeamProfile(props) {
             />
 
             {props.users.filter((val) => {
-                if (searchEmail == "") {
+                if (searchEmail == "" ) {
                     return null
                 } else if (val.email.toLowerCase().includes(searchEmail.toLowerCase())) {
-                    return val
+                    return (val)
                 }
                 }).map((val, key) => (
-                <div className="flex flex-col px-6 py-3 border-2 border-gray-400">
-                    <p key={key.email}>{val.email}</p>
-                    <button key={key.email} value={val.email} onClick={handleInvite} className="absolute ml-56 border border-gray-400 rounded-lg px-3 py-1">Invite</button>
-                </div>
-            ))}
+                    <div key={key} className="flex flex-col px-6 py-3 border-2 border-gray-400">
+                        <p>{val.email}</p> 
+                        <button type="submit" onClick={handleInvite} value={val.email} className="absolute ml-56 border border-gray-400 rounded-lg px-3 py-1">Invite</button>
+                    </div>
+                ))}
         </div>
 
     )
