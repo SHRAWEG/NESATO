@@ -5,15 +5,7 @@ import router from 'next/router';
 import * as Yup from 'yup';
 
 
-const Teamprofile = (props) => {
-    let options = [
-    ]
-
-    for(let i in props.users) {
-        options.push({
-            value: props.users[i].email, label: props.users[i].email
-        })
-    }
+const createTeam = () => {
 
     return (
         <>
@@ -22,7 +14,7 @@ const Teamprofile = (props) => {
                     initialValues = {{
                         team_name : "",
                         team_tag : "",
-                        game : ""
+                        game: "",
                     }} 
                     
                     validationSchema = {
@@ -32,14 +24,9 @@ const Teamprofile = (props) => {
 
                             team_tag: Yup.string()
                             .required("Please enter your Team Tag"),
-                            
-                            users: Yup.array()
-                            .of(
-                                Yup.object().shape({
-                                label: Yup.string().required(),
-                                value: Yup.string().required(),
-                                })
-                            )
+
+                            game: Yup.string()
+                            .required('Please choose the game'),
                         })
                     }
 
@@ -60,6 +47,11 @@ const Teamprofile = (props) => {
                                 if (response.status == 200) {
                                     router.replace("/");
                                 } 
+
+                                else {
+                                    alert(json.message)
+                                }
+
                             } catch(error) {
                                 console.log(
                                     error
@@ -93,8 +85,7 @@ const Teamprofile = (props) => {
                                     onChange = {formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     value = {formik.values.team_name}
-                                />
-                                
+                                />  
                             </div>
 
                             <div>
@@ -102,7 +93,7 @@ const Teamprofile = (props) => {
                                     Team / Clan Tag
                                 </label>
                                 {
-                                    formik.touched.team_name && formik.errors.team_name && (
+                                    formik.touched.team_tag && formik.errors.team_tag && (
                                         <p className = "text-red-500 text-sm font-medium w-80">
                                             {formik.errors.team_tag}
                                         </p>
@@ -117,22 +108,35 @@ const Teamprofile = (props) => {
                                     onChange = {formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     value = {formik.values.team_tag}
-                                />
-                                
+                                /> 
                             </div>
 
                             <div>
-                                <label className="block text-gray-700 text-lg font-bold mb-2" htmlFor="firstname">
-                                    Add team members
+                                <label className="block text-gray-700 text-lg font-bold">
+                                    Game
                                 </label>
-                                <input
-                                    className="shadow appearance-none border w-80 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    type="text"
-                                    placeholder="Search.."
-                                    name="search"
-                                />
+                                {
+                                    formik.touched.game && formik.errors.game && (
+                                        <p className = "text-red-500 text-sm font-medium w-80">
+                                            {formik.errors.game}
+                                        </p>
+                                    )
+                                }
+                                <select 
+                                    className="shadow appearance-none border w-80 rounded-md py-2 px-3 mb-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id = "game"
+                                    name = "game"
+                                    value = {formik.values.game}
+                                    onChange = {formik.handleChange}
+                                    onBlur = {formik.handleBlur} 
+                                >
+                                    <option value="">Choose the game</option>
+                                    <option value="DOTA">DOTA</option>
+                                    <option value="CSGO">CSGO</option>
+                                    <option value="PUBG MOBILE">PUBG MOBILE</option>
+                                    <option value="MLBB">MOBILE LEGENDS</option>
+                                </select>
                             </div>
-
                             <div className="flex flex-col items-between justify-evenly">
                                 <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-2 mt-6" type="submit">
                                     Create Team
@@ -150,4 +154,4 @@ const Teamprofile = (props) => {
     )
 }
 
-export default Teamprofile;
+export default createTeam;

@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 import fetch from 'isomorphic-unfetch';
 import * as Yup from 'yup';
 
-function Profile(props) {
+function UpdateProfile(props) {
     return (
         <div className="">
             <div className ="flex flex-col bg-white p-16 rounded-3xl shadow-2xl">
@@ -175,17 +175,17 @@ function Profile(props) {
                                 className="shadow appearance-none border w-80 rounded-md py-2 px-3 mb-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id = "gender"
                                 name = "gender"
-                                placeholder = "Gender"
                                 value = {formik.values.gender}
-                                onChange = {formik.handleChange} 
+                                onChange = {formik.handleChange}
+                                onBlur = {formik.handleBlur} 
                             >
-                                <option>Select Your Gender</option>
+                                <option value="">Choose your gender...</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                                 <option value="others">Others</option>
                             </select>
                             {
-                                formik.touched.gender && formik.errors.number && (
+                                formik.touched.gender && formik.errors.gender && (
                                     <p className = "text-red-500 text-sm font-medium w-80">
                                         {formik.errors.gender}
                                     </p>
@@ -230,4 +230,4 @@ function Profile(props) {
     )
 }
 
-export default Profile;
+export default UpdateProfile;

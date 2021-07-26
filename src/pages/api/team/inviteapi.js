@@ -9,7 +9,7 @@ export default async (req, res) => {
     let alreadySent = true;
 
     const {
-        sent_to
+        user
     } = req.body ;
 
     if (method =='POST') {

@@ -1,5 +1,5 @@
 import React from "react";
-import Profile from "../../components/userprofile/profile";
+import UpdateProfile from "../../components/userprofile/UpdateProfile";
 import { useState, useEffect } from "react";
 import { getSession } from "next-auth/client";
 import { useRouter } from "next/router";
@@ -31,14 +31,14 @@ const userProfile = () => {
         console.log(data.firstname)
         return(
             <div>
-                <Profile firstname={data.firstname} lastname={data.lastname} address={data.address} phone={data.phone} gender={data.gender} dob={data.dob} />
+                <UpdateProfile firstname={data.firstname} lastname={data.lastname} address={data.address} phone={data.phone} gender={data.gender} dob={data.dob} />
             </div>
         )
     
     }
 
     return(
-        <Profile firstname="" lastname="" address="" phone="" gender="" dob="" />
+        <UpdateProfile firstname="" lastname="" address="" phone="" gender="male" dob="" />
     )
 
  
