@@ -22,7 +22,7 @@ const Teamprofile = (props) => {
                     initialValues = {{
                         team_name : "",
                         team_tag : "",
-                        users: []
+                        game : ""
                     }} 
                     
                     validationSchema = {
