@@ -4,10 +4,12 @@ import React from 'react'
 import useSWR from 'swr';
 
 
-function HomePageAuthenticated( {} ) {
+function HomePageAuthenticated(props) {
     const fetcher = (url) => fetch(url).then((res) => res.json());
-
     const {data} = useSWR('/api/userprofile/getuserdata', fetcher)
+
+    
+
     return (
         <>
             <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css" />
@@ -38,27 +40,36 @@ function HomePageAuthenticated( {} ) {
                             <div className="flex flex-col md:flex-row gap-6 md:gap-8">
                                 <div className="flex flex-col text-center md:text-left">
                                     {data && (
-                                        !(data.team_name) ? (
+                                        !(data.team) ? (
                                             <Link href="/team/createteam">
                                                 <button className="mt-2 rounded-full py-2 bg-yellow-400 text-gray-600 hover:bg-blue-300 font-semibold">Create a Team</button>
                                             </Link>
                                         ):
                                         (   
                                             <div>
-                                                <div className="font-medium text-lg text-gray-800">{data.team_name}</div>
+                                                <div className="font-medium text-lg text-gray-800">{data.team.team_name}</div>
                                             </div>
                                         )
                                     )}
                                 </div>
                             </div>
                             {data && (
-                                data.team_name && (
+                                data.team && (
                                     <Link href="/team">
                                         <button className="mt-2 rounded-full py-2 bg-yellow-400 text-gray-600 hover:bg-blue-300 font-semibold">View Profile</button>
                                     </Link>
                                 )
                             )}
                         </div>
+                        <div className="flex flex-col mt-40">
+                            <h1 className="font-medium text-4xl text-center mb-2">Team</h1>
+                            <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+                                <div className="flex flex-col text-center md:text-left">
+
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div className="absolute bottom-0">
                             <button className="bg-transparent border border-gray-500 hover:border-yellow-500 text-gray-500 hover:text-yellow-500 font-bold py-4 px-8 rounded-full lg:text-3xl md:text-2xl sm:text-xl mb-10" onClick={signOut}>Sign Out</button>
                         </div>            

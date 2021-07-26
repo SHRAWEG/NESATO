@@ -175,16 +175,17 @@ function Profile(props) {
                                 className="shadow appearance-none border w-80 rounded-md py-2 px-3 mb-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id = "gender"
                                 name = "gender"
-                                placeholder = "Gender"
                                 value = {formik.values.gender}
-                                onChange = {formik.handleChange} 
+                                onChange = {formik.handleChange}
+                                onBlur = {formik.handleBlur} 
                             >
+                                <option value="">Choose your gender...</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                                 <option value="others">Others</option>
                             </select>
                             {
-                                formik.touched.gender && formik.errors.number && (
+                                formik.touched.gender && formik.errors.gender && (
                                     <p className = "text-red-500 text-sm font-medium w-80">
                                         {formik.errors.gender}
                                     </p>

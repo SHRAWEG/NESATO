@@ -38,7 +38,7 @@ const userProfile = () => {
     }
 
     return(
-        <Profile firstname="" lastname="" address="" phone="" gender="" dob="" />
+        <Profile firstname="" lastname="" address="" phone="" gender="male" dob="" />
     )
 
  
