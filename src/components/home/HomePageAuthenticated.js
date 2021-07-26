@@ -68,7 +68,7 @@ function HomePageAuthenticated(props) {
 
                                 </div>
                             </div>
-                        </div>
+                            </div>
                         
                         <div className="absolute bottom-0">
                             <button className="bg-transparent border border-gray-500 hover:border-yellow-500 text-gray-500 hover:text-yellow-500 font-bold py-4 px-8 rounded-full lg:text-3xl md:text-2xl sm:text-xl mb-10" onClick={signOut}>Sign Out</button>
