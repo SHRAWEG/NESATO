@@ -14,7 +14,7 @@ const createTeam = () => {
                     initialValues = {{
                         team_name : "",
                         team_tag : "",
-                        
+                        game: "",
                     }} 
                     
                     validationSchema = {
