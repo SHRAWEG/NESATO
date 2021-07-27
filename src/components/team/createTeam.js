@@ -4,8 +4,6 @@ import fetch from 'isomorphic-unfetch';
 import router from 'next/router';
 import * as Yup from 'yup';
 
-import { useSession } from 'next-auth/client';
-
 
 const createTeam = () => {
 

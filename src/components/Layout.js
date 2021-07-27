@@ -16,7 +16,6 @@ export default function Layout({ children }) {
           <div className="flex w-full mt-32">
             {children}
           </div>
-
         </main>
     </>
   )
