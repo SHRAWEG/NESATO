@@ -22,6 +22,7 @@ function TeamProfile(props) {
 
             const json = await response.json();
             console.log(json.message);
+         
 
             if (response.status == 200) {
                 alert('Invitation successfully sent')

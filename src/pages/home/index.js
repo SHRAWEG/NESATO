@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '../../components/Header'
 import Link from 'next/link'
 import Image from 'next/image'
-import nesaLogo from '../../public/img/NesaLogo.png'
+import nesaLogo from '../../../public/img/NesaLogo.png'
 
 
 function Home() {

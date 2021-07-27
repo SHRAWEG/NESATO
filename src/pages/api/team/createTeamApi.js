@@ -26,7 +26,11 @@ export default async (req, res) => {
             }
         })
 
-        if (user.teams) {
+        if(!user.firstname) {
+            return res.status(403).json({message: "Ypu have not completed your profile please complete your profile first to continue."})
+        }
+
+        if(user.teams) {
             user.teams.map((team) => {
                 if(team.game == game) {
                     gameExists=true
@@ -52,8 +56,8 @@ export default async (req, res) => {
                 {
                     _id: user._id,
                     email: user.email,
-                    name: user.firstname + user.lastname,
-                    username: user.username,
+                    name: user.firstname + " " + user.lastname,
+                    username : user.username
                 }
             ]
         }).then(({ops}) => ops[0]);
