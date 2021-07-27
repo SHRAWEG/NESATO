@@ -1,6 +1,8 @@
 import React from 'react';
 import {useState} from 'react';
 import useSWR from 'swr';
+import Link from 'next/link';
+
 
 
 export default function TestTeam(props) {
@@ -18,24 +20,27 @@ export default function TestTeam(props) {
                  this had loaded.
                  <div>
                     {teams.map((team, key) => (
-                        <div key={key}>
-                            {team.team_name}
-                            <br/>
-                            <a href="/team/">
-                                <button type="submit" onClick={()=>console.log(team._id)} value={team._id} >Invite</button>
-                            </a>
+                        <div key={team._id}>
                             
-                            <br/>
+
+                            <Link href = {'/test/' + team._id } >
+                                <a>
+                                    <h3>
+                                        {team.team_name}
+                                    </h3>
+                                </a>
+                            </Link>
+
                         </div>
                     ))}
                  </div>
             </> 
          )
-    }
-
-    else {
+    } else {
         return null
     }
+
+
     
     
     
