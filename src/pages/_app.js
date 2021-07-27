@@ -17,11 +17,13 @@ function MyApp({ Component, pageProps }) {
 
         default:
             return (
-                <Layout>
-                    <Provider session={pageProps.session}>
-                        <Component {...pageProps} />
-                    </Provider>
-                </Layout>
+                <>
+                    <Layout>
+                        <Provider session={pageProps.session}>
+                            <Component {...pageProps} />
+                        </Provider>
+                    </Layout>
+                </>
             )
     }  
 }
