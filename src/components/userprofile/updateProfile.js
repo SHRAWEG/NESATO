@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 import fetch from 'isomorphic-unfetch';
 import * as Yup from 'yup';
 
-function Profile(props) {
+function UpdateProfile(props) {
     return (
         <div className="">
             <div className ="flex flex-col bg-white p-16 rounded-3xl shadow-2xl">
@@ -230,4 +230,4 @@ function Profile(props) {
     )
 }
 
-export default Profile;
+export default UpdateProfile;

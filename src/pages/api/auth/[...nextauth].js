@@ -23,15 +23,15 @@ const options = {
             async authorize(credentials) {
                 //Connecting to database 
                 const { db } = await connectToDatabase();
-                const collection = await db.collection('users');
 
+                //collecting user data from database
+                const collection = await db.collection('users');
                 const users = await collection.findOne({email: { $regex: "^" + credentials.email + "$", $options: "i" }});
 
+                //checking and authtenticating the user
                 if (!users) {
                     throw new Error("Wait do I know you? I dont seem to recognize that email. DANG!")
-                } 
-
-                else { 
+                } else { 
                     const isValid =  await verifyPassword(credentials.password, users.password);
 
                     if (!isValid) throw new Error("Password doest not match")
