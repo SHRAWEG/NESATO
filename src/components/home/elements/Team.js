@@ -17,7 +17,11 @@ function Team(props) {
                         {props.teams.map((team, key) => (
                             <div key={key}>
                                 <h1 className="text-xl">{team.game}</h1>
-                                <p className="text-lg mb-4"><span className="pl-2">{team.team_name}</span></p>
+                                <Link href = {'/team/' + team._id } >
+                                    <a>
+                                        <p className="text-lg mb-4"><span className="pl-2">{team.team_name}</span></p>
+                                    </a>
+                                </Link>
                             </div>
                         ))}
                     </div>

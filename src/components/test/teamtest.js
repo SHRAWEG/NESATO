@@ -21,8 +21,6 @@ export default function TestTeam(props) {
                  <div>
                     {teams.map((team, key) => (
                         <div key={team._id}>
-                            
-
                             <Link href = {'/test/' + team._id } >
                                 <a>
                                     <h3>

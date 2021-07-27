@@ -24,7 +24,7 @@ const teamProfile = ( {collection} ) => {
 
     return (
         <>
-            <TeamProfile users={collection} />
+            <TeamProfile/>
         </>
     )
 }
