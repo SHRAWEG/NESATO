@@ -26,11 +26,14 @@ export default async (req, res) => {
             }
         })
 
-        user.teams.map((team) => {
-            if(team.game == game) {
-                gameExists=true
-            }
-        })
+        if (user.teams) {
+            user.teams.map((team) => {
+                if(team.game == game) {
+                    gameExists=true
+                }
+            })
+        }
+        
 
         if (alreadyExists) {
             return res.status(403).json({message: "The team name with the chosen game already exists"})
@@ -50,6 +53,7 @@ export default async (req, res) => {
                     _id: user._id,
                     email: user.email,
                     name: user.firstname + user.lastname,
+                    username: user.username,
                 }
             ]
         }).then(({ops}) => ops[0]);

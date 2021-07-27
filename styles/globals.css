@@ -4,7 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
+.font-body{
     font-family: 'Electrolize';
     font-style: normal;
 }

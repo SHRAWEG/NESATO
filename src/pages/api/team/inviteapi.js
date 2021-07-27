@@ -17,7 +17,7 @@ export default async (req, res) => {
         const {db} = await connectToDatabase();
 
         const sent_to = await db.collection('users').findOne({email: user})
-        const sent_by = await db.collection('users').findOne({email: session.user.email})
+        const sent_by = await db.collection('team').findOne({email: session.user.email})
 
         const invitation = await db.collection('invitation').find().toArray()
 
@@ -38,8 +38,10 @@ export default async (req, res) => {
         
 
         await db.collection('invitation').insertOne({
-            sent_by: sent_by.team_name,
+            sent_by: sent_by._id,
             sent_to: sent_to._id,
+            team_name: sent_by.team_name,
+            game: sent_by.game,
             status: "Pending"
         }).then(({ops}) => ops[0]);
     }

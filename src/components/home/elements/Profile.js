@@ -3,15 +3,17 @@ import React from 'react'
 
 function Profile(props) {
     return (
-        <div>
-            <div>
-                <h1>Profile</h1>
-                <p>{props.user.username}</p>
-                <Link href="/userprofile">
-                    <button className="mt-2 rounded-full py-2 bg-yellow-400 text-gray-600 hover:bg-blue-300 font-semibold">Update</button>
-                </Link>
+        <>
+            <div className="flex-col bg-white py-5 rounded-2xl ml-10 w-full">
+                <div className="flex flex-col mx-8 gap-y-5 items-start">
+                    <h1 className="text-3xl font-bold">Profile</h1>
+                    <p className="text-xl"><i class="fas fa-user"></i><span className="pl-2">{props.user.username}</span></p>
+                    <Link href="/userprofile">
+                        <button className="bg-yellow-500 text-gray-700 px-4 py-2 rounded-3xl font-bold">Update</button>
+                    </Link>  
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 

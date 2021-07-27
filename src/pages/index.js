@@ -1,10 +1,9 @@
 import React from "react";
 import { useSession } from "next-auth/client";
-import HomePageAuthenticated from "../components/home/HomePageAuthenticated";
-import HomePage from "../components/home/HomePage";
+import Homepage from "../components/home/Homepage";
 import { connectToDatabase } from "../utils/mongodb";
 
-export default function Home( {collection} ) {
+export default function HomeAuth( {collection} ) {
 
   const [session] = useSession();
 
@@ -12,12 +11,8 @@ export default function Home( {collection} ) {
 
   return(
     <>
-      {!session && (
-        <HomePage />
-      )}
-
       {session && (
-        <HomePageAuthenticated invitation={collection} />
+        <Homepage invitation={collection} />
       )}
     </>
     

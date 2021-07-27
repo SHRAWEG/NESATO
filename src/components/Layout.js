@@ -7,11 +7,17 @@ export default function Layout({ children }) {
   return (
     <>
         <Header />
-        <main className="bg-gray-200 font-body flex flex-col w-full items-center h-full min-h-screen">
-          <Link href="/">
-              <a className="w-48 mt-6"><Image src={nesaLogo} alt="Nesa Logo" /></a>
-          </Link>
-          {children}
+        <main className="bg-gray-200 font-body flex h-screen">
+          <div class="flex fixed justify-center shadow-2xl pb-4 w-screen bg-gray-700">
+            <Link href="/">
+                <a className="w-40 mt-4"><Image src={nesaLogo} alt="Nesa Logo" /></a>
+            </Link>
+          </div>
+          <div className="flex w-full mt-32">
+            {children}
+          </div>
+
+          <script src="https://kit.fontawesome.com/a037536aa2.js" crossorigin="anonymous"></script>
         </main>
     </>
   )
