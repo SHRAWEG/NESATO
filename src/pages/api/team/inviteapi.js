@@ -6,7 +6,6 @@ export default async (req, res) => {
     const {method} = req;
 
     let alreadySent = false;
-    let alreadyJoined = false;
 
     const {
         user,
@@ -30,20 +29,7 @@ export default async (req, res) => {
                 alreadySent = true;
             }
         })
-
-        if (sent_to.teams) {
-            sent_to.teams.map((team) => {
-                if(team.game == sent_by.game) {
-                    alreadyJoined = true;
-                }
-            }
-            )
-        }
-
-        if (alreadyJoined) {
-            return res.status(403).json({message: "The user has already joined the team with the chosen game"})
-        }
-
+        
         if (alreadySent) {
             return res.status(403).json({message: "You have already sent the request to this user"})
         }
