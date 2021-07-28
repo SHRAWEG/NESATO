@@ -33,7 +33,7 @@ const createTeam = () => {
                         onSubmit = {async (values) => {
 
                                 try {
-                                    const response = await fetch('/api/team/createTeamApi', {
+                                    const response = await fetch('/api/team/createteamApi', {
                                         method  : 'POST',
                                         headers : {
                                             'Content-Type' : 'application/JSON'
