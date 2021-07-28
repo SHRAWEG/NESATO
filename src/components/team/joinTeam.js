@@ -1,11 +1,44 @@
 import { getSession } from "next-auth/client";
 import React from "react";
 import {useState} from 'react';
+// import { getStaticProps } from "../../pages/team/jointeam";
 
-export default function JoinTeam() {
-    const [searchTeam, setSearchTeam] = useState();
+export default function JoinTeam(props) {
+    const [searchTeam, setSearchTeam] = useState(""); 
 
-    const session = getSession();
+    const handleRequest = async (e) => {
+        const team = e.target.value
+
+        try {
+            const response = await fetch('/api/team/requestApi',{
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/JSON'
+                },
+                body: JSON.stringify({
+                    user_id: props.user._id,
+                    team_id: team,
+                }),
+            })
+
+            const json = await response.json();
+            console.log(json.message);
+         
+
+            if (response.status == 200) {
+                alert('Invitation successfully sent')
+            }
+
+            else {
+                alert(json.message)
+            }
+
+        } catch (error){
+            console.log(
+                error
+            );
+        }
+    }
 
     
     return(
@@ -23,10 +56,43 @@ export default function JoinTeam() {
                         setSearchTeam(e.target.value);
                     }}
                     autoComplete="off"
-                >
-                
+                />
 
-                </input>
+                {props.teams.filter((val) => {
+                    if (searchTeam == "") {
+                        return  null;
+                    } else if (val.team_name.toLowerCase().includes(searchTeam.toLowerCase())) {
+                        return val
+                    }
+                    }).map((val, key) => {
+                        let alreadyJoined = false;
+                        let alreadyGame = false
+                        val.players.map((player) => {
+                            if((player._id == props.user._id)) {
+                                alreadyJoined = true;
+                            }
+                        })
+
+                        props.user.teams.map((team) =>{
+                            if(team.game == val.game){
+                                alreadyGame = true
+                            }
+                        })
+
+                        if (!alreadyJoined) {
+                            if (!alreadyGame){
+                                return (
+                                <div key={key} className="flex flex-col px-6 py-3 border-2 border-gray-400">
+                                    <p>{val.team_name} {val.game}</p> 
+                                    <button type="submit" onClick={handleRequest} value={val._id} className="absolute mb-12 ml-40 border border-gray-400 rounded-lg px-3 py-1">
+                                        Send Request
+                                    </button>
+                                </div>
+                                )
+                            }
+                        }
+                    }
+                )}
             </div>
         </>
     )
