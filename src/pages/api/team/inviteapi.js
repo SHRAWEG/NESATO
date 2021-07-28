@@ -26,7 +26,7 @@ export default async (req, res) => {
         const invitation = await db.collection('invitation').find().toArray()
 
         JSON.parse(JSON.stringify(invitation)).map((data) => {
-            if(data.sent_to == sent_to._id && data.sent_by == sent_by._id) {
+            if(data.sent_to == sent_to._id && data.sent_by == sent_by._id & data.status=="Pending") {
                 alreadySent = true;
             }
         })
@@ -55,6 +55,7 @@ export default async (req, res) => {
         await db.collection('invitation').insertOne({
             sent_by: o_id,
             sent_to: sent_to._id,
+            game: sent_by.game,
             status: "Pending"
         }).then(({ops}) => ops[0]);
     }
