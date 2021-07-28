@@ -1,4 +1,5 @@
 import React from 'react'
+import Invitation from './elements/Invitation';
 import Profile from './elements/Profile';
 import Team from './elements/Team';
 
@@ -11,6 +12,8 @@ function Homepage(props) {
                     <Profile user={props.user} />
 
                     <Team teams={props.user.teams}/>
+
+                    <Invitation invitations={props.invitation} user={props.user} teams={props.team} />
                 </div>
             </>    
     )

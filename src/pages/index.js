@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 
 
-export default function HomeAuth( {collection} ) {
+export default function HomeAuth( {team, invitation} ) {
   const [isLoading, setIsLoading] = useState(true);
 	const router = useRouter();
 
@@ -29,7 +29,7 @@ export default function HomeAuth( {collection} ) {
   if(data) {
     return(
       <>
-          <Homepage user={data} invitation={collection} />
+          <Homepage user={data} invitation={invitation} team={team}  />
       </>
     )
   }
@@ -41,20 +41,13 @@ export default function HomeAuth( {collection} ) {
 
 export async function getStaticProps(req) {
   const { db } = await connectToDatabase()
-  const collection = await db.collection('invitation').find().toArray();
-
-  if (!collection) {
-      return {
-          redirect: {
-              destination: '/',
-              permanent: false,
-          }
-      }
-  }
+  const invitation = await db.collection('invitation').find().toArray();
+  const team = await db.collection('team').find().toArray();
 
   return {
       props: {
-          collection: JSON.parse(JSON.stringify(collection)),
+          invitation: JSON.parse(JSON.stringify(invitation)),
+          team: JSON.parse(JSON.stringify(team))
       },
 
       revalidate: 1,
