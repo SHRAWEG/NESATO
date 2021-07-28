@@ -1,4 +1,4 @@
-import { getSession } from "next-auth/client";
+// import { getSession } from "next-auth/client";
 import React from "react";
 import {useState} from 'react';
 // import { getStaticProps } from "../../pages/team/jointeam";
