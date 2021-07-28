@@ -1,13 +1,17 @@
 import React from 'react';
 import { useState, useEffect } from "react";
-import { getSession, session } from "next-auth/client";
+import { getSession } from "next-auth/client";
 import {useRouter} from "next/router";
 import { connectToDatabase } from "../../utils/mongodb";
-import TeamProfile from '../../components/team/TeamProfile';
+import TeamProfile from '../../components/team/teamprofile';
+import useSWR from 'swr';
 
-const teamProfile = ( {teams}, {users} ) => {
+const Team = ( {teams, users} ) => {
     const [isLoading, setIsLoading] = useState();
     const router = useRouter();
+
+    const fetcher = (url) => fetch(url).then((res) => res.json());
+    const {data} = useSWR('/api/userprofile/getuserdata', fetcher)
 
     useEffect(() => {
         getSession().then((session) =>{
@@ -20,6 +24,8 @@ const teamProfile = ( {teams}, {users} ) => {
         });
     },[router]);
 
+    
+
     if (isLoading) return <p> loading... </p>;
 
     let team
@@ -30,13 +36,14 @@ const teamProfile = ( {teams}, {users} ) => {
         }
     ))
 
-    console.log(team)
-
     return (
         <>
-            <TeamProfile users={users} team={team} />
+            {data && (
+                <TeamProfile user={data} users={users} team={team} />
+            )}  
         </>
     )
+    
 }
 
 export const getStaticProps = async ({ params }) => {
@@ -48,17 +55,6 @@ export const getStaticProps = async ({ params }) => {
 
     const users = await db.collection('users').find().toArray();
     
-    if (!users) {
-        return {
-            redirect: {
-                destination: '/',
-                permanent: false,
-            }
-        }
-    }
-
-
-
     return {
         props: {
             teams: JSON.parse(JSON.stringify(teams)),
@@ -67,6 +63,8 @@ export const getStaticProps = async ({ params }) => {
         revalidate: 1,
     }
 }
+
+
 
 export const getStaticPaths = async () => {
     const {db} = await connectToDatabase();
@@ -85,4 +83,4 @@ export const getStaticPaths = async () => {
 
 
 
-export default teamProfile;
+export default Team;

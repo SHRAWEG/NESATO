@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 function Profile(props) {
     return (
         <>
-            <div className="flex-col bg-white py-5 rounded-2xl ml-10 w-full">
+            <div className="flex-col bg-white py-5 rounded-2xl ml-10 w-full h-full">
                 <div className="flex flex-col mx-8 gap-y-5 items-start">
                     <h1 className="text-3xl font-bold">Profile</h1>
                     <p className="text-xl"><FontAwesomeIcon icon={faUser} /><span className="pl-2">{props.user.username}</span></p>

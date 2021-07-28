@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 function Team(props) {
     return (
         <>
-            <div className="flex-col bg-white py-5 rounded-2xl ml-10 mt-5 pr-10 w-full">
+            <div className="flex-col bg-white py-5 rounded-2xl ml-10 mt-5 pr-10 w-full h-full">
             
                 <div className="flex flex-col mx-8 gap-5 items-start">
                     <div className="flex items-center">
