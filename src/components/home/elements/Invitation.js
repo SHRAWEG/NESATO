@@ -1,6 +1,36 @@
+import router from 'next/router'
 import React from 'react'
 
 function Invitation(props) {
+
+    const handleStatus = async (e) => {
+        const invitation_id = e.target.value
+        const status = e.target.innerHTML
+
+        try {
+            const response = await fetch('/api/team/acceptrejectApi',{
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/JSON'
+                },
+                body: JSON.stringify({
+                    invitation_id: invitation_id,
+                    status: status,
+                    user_id: props.user._id,
+                }),
+            })
+
+            if (response.status == 200) {
+                router.replace('/')
+            }
+
+        } catch (error){
+            console.log(
+                error
+            );
+        }
+    }
+
     return (
         <>
             <div className="flex-col bg-white py-5 rounded-2xl ml-10 mt-5 pr-10 w-full">
@@ -15,11 +45,11 @@ function Invitation(props) {
                                                 <h1 className="text-xl">{team.game}</h1> 
                                                 <p className="text-lg mb-2 ml-3"><span className="pl-2">Team: {team.team_name}</span></p>
                                                 
-                                                <button className="bg-yellow-500 text-gray-700 px-4 py-2 rounded-3xl font-bold mr-7">
+                                                <button onClick={handleStatus} value={invitation._id} className="bg-yellow-500 text-gray-700 px-4 py-2 rounded-3xl font-bold mr-7">
                                                     Accept
                                                 </button>
 
-                                                <button className="bg-red-400 text-gray-700 px-4 py-2 rounded-3xl font-bold">
+                                                <button onClick={handleStatus} value={invitation._id} className="bg-red-400 text-gray-700 px-4 py-2 rounded-3xl font-bold">
                                                     Reject
                                                 </button>
                                             </div>
