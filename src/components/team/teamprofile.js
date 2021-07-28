@@ -63,13 +63,17 @@ function TeamProfile(props) {
                             if (searchEmail == "" ) {
                                 return null
                             } else if (val.email.toLowerCase().includes(searchEmail.toLowerCase())) {
-                                return (val)
+                                    return val
                             }
                             }).map((val, key) => (
-                                <div key={key} className="flex flex-col px-6 py-3 border-2 border-gray-400">
-                                    <p>{val.email}</p> 
-                                    <button type="submit" onClick={handleInvite} value={val.email} className="absolute ml-56 border border-gray-400 rounded-lg px-3 py-1">Invite</button>
-                                </div>
+                                !(val.email == props.user.email) && (
+                                    <div key={key} className="flex flex-col px-6 py-3 border-2 border-gray-400">
+                                        <p>{val.email}</p> 
+                                        <button type="submit" onClick={handleInvite} value={val.email} className="absolute ml-56 border border-gray-400 rounded-lg px-3 py-1">
+                                            Invite
+                                        </button>
+                                    </div>
+                                )
                             ))
                         }
                     </div>
