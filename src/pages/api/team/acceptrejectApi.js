@@ -41,7 +41,6 @@ export default async (req, res) => {
                         players: {
                             _id : new_player._id,
                             email: new_player.email,
-                            name: new_player.firstname + " " + new_player.lastname,
                             username: new_player.username
                         }
                     }
@@ -66,7 +65,7 @@ export default async (req, res) => {
             JSON.parse(JSON.stringify(invitations)).map(async (data) => {
                 if (data.game == game & data.sent_to == user_id & data.status == "Pending") {
                     await db.collection('invitation').updateOne(
-                        {_id : data._id},
+                        {_id : new mongo.ObjectID(data._id)},
                         {
                             $set : {
                                 status : "Rejected",

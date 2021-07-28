@@ -30,11 +30,14 @@ const Team = ( {teams, users} ) => {
 
     let team
 
-    teams.map((team1) => (
-        team = {
-            ...team1
-        }
-    ))
+    if (teams) {
+        teams.map((team1) => (
+            team = {
+                ...team1
+            }
+        ))
+    }
+    
 
     return (
         <>
