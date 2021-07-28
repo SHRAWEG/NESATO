@@ -19,6 +19,9 @@ export default async (req, res) => {
         const invitation = await db.collection("invitation").findOne({_id: o_id})
         const new_player = await db.collection("users").findOne({_id: new mongo.ObjectID(user_id)})
         const team = await db.collection("team").findOne({_id : invitation.sent_by})
+        const invitations = await db.collection('invitation').find().toArray();
+
+        const game = team.game;
         
 
         if (status == "Accept"){
@@ -53,12 +56,26 @@ export default async (req, res) => {
                             {
                                 _id: team._id,
                                 team_name : team.team_name,
-                                game : team.game,
+                                game : game,
                                 isCaptain: false,
                             }
                     }
                 }
             )
+
+            JSON.parse(JSON.stringify(invitations)).map(async (data) => {
+                if (data.game == game & data.sent_to == user_id & data.status == "Pending") {
+                    await db.collection('invitation').updateOne(
+                        {_id : data._id},
+                        {
+                            $set : {
+                                status : "Rejected",
+                            }
+                        }
+                    )
+                }
+            })
+
         } else if ( status == "Reject"){
             await db.collection('invitation').updateOne(
                 {_id : o_id},
@@ -68,6 +85,7 @@ export default async (req, res) => {
                     }
                 }
             )
+            
         }
 
         return (
