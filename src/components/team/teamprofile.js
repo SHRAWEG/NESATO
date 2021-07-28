@@ -41,8 +41,10 @@ function TeamProfile(props) {
     return (
         <div>
             <>
-                {props.._id == props.team.team_cap && (
-
+                {props.user._id == props.team.team_cap && (
+                    <div>
+                        Captain
+                    </div>
                 )}
                 <label className="block text-gray-700 text-lg font-bold mb-2" >
                     Add team members
