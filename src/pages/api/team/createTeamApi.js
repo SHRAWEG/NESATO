@@ -15,10 +15,13 @@ export default async (req, res) => {
     } = req.body ;
 
     if (method =='POST') {
+        var mongo = require('mongodb');
+
         const {db} = await connectToDatabase();
         
         const user = await db.collection('users').findOne({email: session.user.email})
         const teams = await db.collection('team').find().toArray()
+        const invitations = await db.collection('invitation').find().toArray();
 
         teams.map((team) => {
             if(team.team_name == team_name & team.game == game) {
@@ -56,7 +59,6 @@ export default async (req, res) => {
                 {
                     _id: user._id,
                     email: user.email,
-                    name: user.firstname + " " + user.lastname,
                     username : user.username
                 }
             ]
@@ -76,6 +78,19 @@ export default async (req, res) => {
                 }
             }
         )
+
+        JSON.parse(JSON.stringify(invitations)).map(async (data) => {
+            if (data.game == game & data.sent_to == user._id.toString() & data.status == "Pending") {
+                await db.collection('invitation').updateOne(
+                    {_id : new mongo.ObjectID(data._id)},
+                    {
+                        $set : {
+                            status : "Rejected",
+                        }
+                    }
+                )
+            }
+        })
     }
 
     return res.status(200).json({message : "successful"})

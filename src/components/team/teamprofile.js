@@ -11,7 +11,7 @@ function TeamProfile(props) {
         const user = e.target.value
 
         try {
-            const response = await fetch('/api/team/inviteapi',{
+            const response = await fetch('/api/team/inviteApi',{
                 method: 'POST',
                 headers: {
                     'Content-Type' : 'application/JSON'
