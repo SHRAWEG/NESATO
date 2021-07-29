@@ -4,8 +4,6 @@ import { getSession } from 'next-auth/client';
 
 function TeamProfile(props) {
     const [searchEmail, setSearchEmail] = useState('')
-
-    const session = getSession();
             
     const handleInvite = async (e) => {
         const user = e.target.value

@@ -2,7 +2,6 @@ import { connectToDatabase } from "../../../utils/mongodb";
 import {getSession} from "next-auth/client"
 
 export default async (req, res) => {
-    const session = await getSession({req});
     const {method} = req;
 
     const {
@@ -19,7 +18,6 @@ export default async (req, res) => {
         const invitation = await db.collection("invitation").findOne({_id: o_id})
         const new_player = await db.collection("users").findOne({_id: new mongo.ObjectID(user_id)})
         const team = await db.collection("team").findOne({_id : invitation.sent_by})
-        const invitations = await db.collection('invitation').find().toArray();
 
         const game = team.game;
         
@@ -61,19 +59,6 @@ export default async (req, res) => {
                     }
                 }
             )
-
-            JSON.parse(JSON.stringify(invitations)).map(async (data) => {
-                if (data.game == game & data.sent_to == user_id & data.status == "Pending") {
-                    await db.collection('invitation').updateOne(
-                        {_id : new mongo.ObjectID(data._id)},
-                        {
-                            $set : {
-                                status : "Rejected",
-                            }
-                        }
-                    )
-                }
-            })
 
         } else if ( status == "Reject"){
             await db.collection('invitation').updateOne(
