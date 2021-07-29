@@ -6,7 +6,6 @@ export default async (req, res) => {
     const {method} = req;
 
     let alreadyExists = false
-    let gameExists = false
 
     const {
         team_name,
@@ -27,24 +26,11 @@ export default async (req, res) => {
         })
 
         if(!user.firstname) {
-            return res.status(403).json({message: "Ypu have not completed your profile please complete your profile first to continue."})
-        }
-
-        if(user.teams) {
-            user.teams.map((team) => {
-                if(team.game == game) {
-                    gameExists=true
-                }
-            })
+            return res.status(403).json({message: "You have not completed your profile please complete your profile first to continue."})
         }
         
-
         if (alreadyExists) {
             return res.status(403).json({message: "The team name with the chosen game already exists"})
-        }
-
-        if (gameExists) {
-            return res.status(403).json({message: "You have already joined the team with the chosen game"})
         }
 
         const team = await db.collection('team').insertOne({

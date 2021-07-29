@@ -6,6 +6,7 @@ export default async (req, res) => {
     const {method} = req;
 
     let alreadySent = false;
+    let alreadyJoined = false;
 
     const {
         user,
@@ -25,13 +26,23 @@ export default async (req, res) => {
         const invitation = await db.collection('invitation').find().toArray()
 
         JSON.parse(JSON.stringify(invitation)).map((data) => {
-            if(data.sent_to == sent_to._id && data.sent_by == sent_by._id & data.status=="Pending") {
+            if(data.sent_to == sent_to._id && data.sent_by == sent_by._id && data.status=="Pending") {
                 alreadySent = true;
+            }
+        })
+
+        sent_to.teams.map((team) => {
+            if (team._id == team_id) {
+                alreadyJoined = true;
             }
         })
         
         if (alreadySent) {
             return res.status(403).json({message: "You have already sent the request to this user"})
+        }
+
+        if (alreadyJoined) {
+            return res.status(403).json({message: "The user is already in the team"})
         }
 
         if (user == session.user.email) {
