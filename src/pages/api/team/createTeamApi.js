@@ -6,7 +6,6 @@ export default async (req, res) => {
     const {method} = req;
 
     let alreadyExists = false
-    let gameExists = false
 
     const {
         team_name,
@@ -15,13 +14,10 @@ export default async (req, res) => {
     } = req.body ;
 
     if (method =='POST') {
-        var mongo = require('mongodb');
-
         const {db} = await connectToDatabase();
         
         const user = await db.collection('users').findOne({email: session.user.email})
         const teams = await db.collection('team').find().toArray()
-        const invitations = await db.collection('invitation').find().toArray();
 
         teams.map((team) => {
             if(team.team_name == team_name & team.game == game) {
@@ -30,24 +26,11 @@ export default async (req, res) => {
         })
 
         if(!user.firstname) {
-            return res.status(403).json({message: "Ypu have not completed your profile please complete your profile first to continue."})
-        }
-
-        if(user.teams) {
-            user.teams.map((team) => {
-                if(team.game == game) {
-                    gameExists=true
-                }
-            })
+            return res.status(403).json({message: "You have not completed your profile please complete your profile first to continue."})
         }
         
-
         if (alreadyExists) {
             return res.status(403).json({message: "The team name with the chosen game already exists"})
-        }
-
-        if (gameExists) {
-            return res.status(403).json({message: "You have already joined the team with the chosen game"})
         }
 
         const team = await db.collection('team').insertOne({
@@ -78,19 +61,6 @@ export default async (req, res) => {
                 }
             }
         )
-
-        JSON.parse(JSON.stringify(invitations)).map(async (data) => {
-            if (data.game == game & data.sent_to == user._id.toString() & data.status == "Pending") {
-                await db.collection('invitation').updateOne(
-                    {_id : new mongo.ObjectID(data._id)},
-                    {
-                        $set : {
-                            status : "Rejected",
-                        }
-                    }
-                )
-            }
-        })
     }
 
     return res.status(200).json({message : "successful"})
