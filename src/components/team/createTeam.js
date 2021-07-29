@@ -156,14 +156,3 @@ const createTeam = () => {
 }
 
 export default createTeam;
-
-
-let alreadyJoined = false;
-
-if (val.teams) {
-    val.teams.map((team) => {
-        if(team.team_id == props.team.team_id & team.game == props.team.game) {
-            alreadyJoined = true;
-        }
-    })
-}
