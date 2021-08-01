@@ -40,7 +40,13 @@ function TeamProfile(props) {
     }
         
     return (
-            <>
+            <>  
+                <h3 className = "flex ">
+                     Captain : {props.team.team_name}
+
+                </h3>
+
+                <br/>
                 {props.user._id == props.team.team_cap && (
                     <div>
                         <label className="block text-gray-700 text-lg font-bold mb-2" >
@@ -76,6 +82,8 @@ function TeamProfile(props) {
                         }
                     </div>
                 )}
+
+                
             </>     
     )
 }

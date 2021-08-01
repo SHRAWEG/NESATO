@@ -25,6 +25,7 @@ export default async (req, res) => {
                     gender,
                     phone,
                     dob,
+                    update_date : new Date(Date.now())
                 }
             }
         )

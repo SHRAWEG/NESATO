@@ -33,7 +33,7 @@ const createTeam = () => {
                         onSubmit = {async (values) => {
 
                                 try {
-                                    const response = await fetch('/api/team/createteamApi', {
+                                    const response = await fetch('/api/team/createTeamApi', {
                                         method  : 'POST',
                                         headers : {
                                             'Content-Type' : 'application/JSON'
@@ -158,12 +158,12 @@ const createTeam = () => {
 export default createTeam;
 
 
-let alreadyJoined = false;
+// let alreadyJoined = false;
 
-if (val.teams) {
-    val.teams.map((team) => {
-        if(team.team_id == props.team.team_id & team.game == props.team.game) {
-            alreadyJoined = true;
-        }
-    })
-}
+// if (val.teams) {
+//     val.teams.map((team) => {
+//         if(team.team_id == props.team.team_id & team.game == props.team.game) {
+//             alreadyJoined = true;
+//         }
+//     })
+// }
