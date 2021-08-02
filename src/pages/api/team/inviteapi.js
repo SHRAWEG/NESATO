@@ -2,45 +2,40 @@ import { connectToDatabase } from "../../../utils/mongodb";
 import { getSession } from "next-auth/client";
 
 export default async (req, res) => {
-    const session = await getSession({req});
     const {method} = req;
 
     let alreadyJoined = false;
 
     const {
-        user,
+        user_id,
         team_id,
     } = req.body ;
 
     // Converting string _id to object _id
     var mongo = require('mongodb');
-    var o_id = new mongo.ObjectID(team_id);
+    var t_id = new mongo.ObjectID(team_id);
+
+    var u_id = new mongo.ObjectID(user_id)
 
     if (method =='POST') {
 
         const {db} = await connectToDatabase();
 
-        const sent_to = await db.collection('users').findOne({email: user})
-        const sent_by = await db.collection('team').findOne({_id: o_id})
-
-        const team_count = sent_by.player_count()
-
+        const sent_to = await db.collection('users').findOne({_id: u_id})
+        const sent_by = await db.collection('team').findOne({_id: t_id})
         const invitation = await db.collection('invitation').find().toArray()
 
-        JSON.parse(JSON.stringify(invitation)).map((data) => {
-            if(data.sent_to == sent_to._id && data.sent_by == sent_by._id && data.status=="Pending") {
-                alreadySent = true;
-            }
-        })
+        const invitationCount = await db.collection('invitation').find({$and: [{sent_by: t_id}, {$or: [{status: "Pending"}, {status: "Accepted"}]}]}).count()
 
-        //Already sent request and already joined request
-        const alreadySent = await db.collection('invitation').findOne({$and: [{sent_to: sent_to._id}, {sent_by: o_id}, {status: "Pending"}]})
-        
-        sent_to.teams.map((team) => {
-            if (team._id == team_id) {
-                alreadyJoined = true;
-            }
-        })
+        const alreadySent = await db.collection('invitation').findOne({$and: [{sent_to: u_id}, {sent_by: t_id}, {status: "Pending"}]})
+
+        if (sent_to.teams) {
+            sent_to.teams.map((team) => {
+                if (team._id == team_id) {
+                    alreadyJoined = true;
+                }
+            })
+        }
         
         if (alreadySent) {
             return res.status(403).json({message: "You have already sent the request to this user"})
@@ -50,13 +45,13 @@ export default async (req, res) => {
             return res.status(403).json({message: "The user is already in the team"})
         }
 
-        if (user == session.user.email) {
-            return res.status(403).json({message: "You cannot add yourself to the team"})
+        if(invitationCount == 6) {
+            return res.status(403).json({message: "The invitation limit has been exceeded"})
         }
 
         await db.collection('invitation').insertOne({
-            sent_by: o_id,
-            sent_to: sent_to._id,
+            sent_by: t_id,
+            sent_to: u_id,
             game: sent_by.game,
             status: "Pending"
         }).then(({ops}) => ops[0]);

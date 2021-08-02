@@ -145,10 +145,6 @@ const createTeam = () => {
                                     Create Team
                                 </button>
                             </div>
-                            
-                            
-                            
-
                         </form>
 
                     )}
