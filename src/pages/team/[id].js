@@ -6,7 +6,7 @@ import { connectToDatabase } from "../../utils/mongodb";
 import TeamProfile from '../../components/team/TeamProfile';
 import useSWR from 'swr';
 
-const Team = ( {teams, users} ) => {
+const Team = ( {teams, users, invitations} ) => {
     const [isLoading, setIsLoading] = useState();
     const router = useRouter();
 
@@ -41,7 +41,7 @@ const Team = ( {teams, users} ) => {
     return (
         <>
             {data && (
-                <TeamProfile user={data} users={users} team={team} />
+                <TeamProfile user={data} users={users} team={team} invitations={invitations} />
             )}  
         </>
     )
@@ -53,15 +53,18 @@ export const getStaticProps = async ({ params }) => {
     var o_id = new mongo.ObjectID(params.id);
 
     const { db } = await connectToDatabase();
-    const teams = await db.collection('team').find({_id: o_id}).toArray();
 
+    const teams = await db.collection('team').find({_id: o_id}).toArray();
     const users = await db.collection('users').find().toArray();
+    const invitations = await db.collection('invitation').find().toArray();
+
     
 
     return {
         props: {
             teams: JSON.parse(JSON.stringify(teams)),
-            users: JSON.parse(JSON.stringify(users))
+            users: JSON.parse(JSON.stringify(users)),
+            invitations: JSON.parse(JSON.stringify(invitations)),
         },
         revalidate: 1,
     }

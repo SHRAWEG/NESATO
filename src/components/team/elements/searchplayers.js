@@ -1,8 +1,34 @@
+import { faDungeon } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import { useState } from 'react';
 
 function SearchPlayers(props) {
     const [searchUsername, setSearchUsername] = useState('')
+
+    let players = [] 
+
+    if (props.invitations) {
+        props.invitations.map((invitation) => {
+            if(invitation.status == "Pending") {
+                let dum = document.getElementById(invitation.sent_to)
+                if (dum) {
+                    dum.innerHTML = "Invited"
+                }
+            }
+        })
+    }
+
+    props.users.map((user) => {
+        if (user.teams) {
+            user.teams.map((team) => {
+                if(team._id != props.team._id) {
+                    players.push(user)
+                }
+            })
+        } else {
+            players.push(user)
+        }
+    })
             
     const handleInvite = async (e) => {
         const userid = e.target.value
@@ -56,22 +82,23 @@ function SearchPlayers(props) {
                             autoComplete="off"
                         />
 
-                        {props.users.filter((val) => {
+                        {players.filter((val) => {
                             if (searchUsername == "" ) {
                                 return null
                             } else if (val.username.toLowerCase().includes(searchUsername.toLowerCase())) {
                                     return val
                             }
-                            }).map((val, key) => (
-                                !(val.username == props.user.username) && (
+                            }).map((val, key) => {
+                                return (
                                     <div key={key} className="flex flex-col px-6 py-3 border-2 border-gray-400">
-                                        <p>{val.username}</p> 
-                                        <button type="submit" onClick={handleInvite} value={val._id} className="absolute ml-56 border border-gray-400 rounded-lg px-3 py-1">
-                                            Invite
-                                        </button>
-                                    </div>
+                                    <p>{val.username}</p> 
+                                    <button type="submit" onClick={handleInvite} id={val._id} value={val._id} className="absolute ml-56 border border-gray-400 rounded-lg px-3 py-1">
+                                        Invite
+                                    </button>
+                                </div>
                                 )
-                            ))
+                            }    
+                            )
                         }
                     </div>
                 
