@@ -23,6 +23,16 @@ export default async (req, res) => {
         const sent_to = await db.collection('users').findOne({email: user})
         const sent_by = await db.collection('team').findOne({_id: o_id})
 
+        const team_count = sent_by.player_count()
+
+        const invitation = await db.collection('invitation').find().toArray()
+
+        JSON.parse(JSON.stringify(invitation)).map((data) => {
+            if(data.sent_to == sent_to._id && data.sent_by == sent_by._id && data.status=="Pending") {
+                alreadySent = true;
+            }
+        })
+
         //Already sent request and already joined request
         const alreadySent = await db.collection('invitation').findOne({$and: [{sent_to: sent_to._id}, {sent_by: o_id}, {status: "Pending"}]})
         

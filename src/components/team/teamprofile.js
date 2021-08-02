@@ -10,10 +10,9 @@ function TeamProfile(props) {
                         {props.user._id == props.team.team_cap && (
                             <SearchPlayers user={props.user} team={props.team} users={props.users}/> 
                         )}              
-                    </div>
-                </div>
-                 
-            </>     
+                    </div>   
+                </div> 
+            </>   
     )
 }
 

@@ -37,15 +37,17 @@ export default async (req, res) => {
 
             await db.collection('team').updateOne(
                 {_id : invitation.sent_by},
-                {
-                    $push: {
+                {   
+                    $inc: {player_count:1},
+
+                    $push : {
                         players: {
                             _id : new_player._id,
                             email: new_player.email,
                             username: new_player.username,
                             join_date: date
                         }
-                    }
+                    },
                 }
             )
 
