@@ -37,7 +37,6 @@ const Team = ( {teams, users} ) => {
             }
         ))
     }
-    
 
     return (
         <>
