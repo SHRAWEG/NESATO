@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { getSession } from "next-auth/client";
 import {useRouter} from "next/router";
 import { connectToDatabase } from "../../utils/mongodb";
-import TeamProfile from '../../components/team/teamprofile';
+import TeamProfile from '../../components/team/TeamProfile';
 import useSWR from 'swr';
 
 const Team = ( {teams, users} ) => {

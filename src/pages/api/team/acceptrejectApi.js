@@ -4,6 +4,9 @@ import {getSession} from "next-auth/client"
 export default async (req, res) => {
     const {method} = req;
 
+    var today = new Date(), 
+    date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
     const {
         status,
         invitation_id,
@@ -41,7 +44,8 @@ export default async (req, res) => {
                         players: {
                             _id : new_player._id,
                             email: new_player.email,
-                            username: new_player.username
+                            username: new_player.username,
+                            join_date: date
                         }
                     },
                 }

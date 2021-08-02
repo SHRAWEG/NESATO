@@ -5,7 +5,6 @@ export default async (req, res) => {
     const session = await getSession({req});
     const {method} = req;
 
-    let alreadySent = false;
     let alreadyJoined = false;
 
     const {
@@ -34,6 +33,9 @@ export default async (req, res) => {
             }
         })
 
+        //Already sent request and already joined request
+        const alreadySent = await db.collection('invitation').findOne({$and: [{sent_to: sent_to._id}, {sent_by: o_id}, {status: "Pending"}]})
+        
         sent_to.teams.map((team) => {
             if (team._id == team_id) {
                 alreadyJoined = true;
