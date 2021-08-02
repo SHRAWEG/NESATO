@@ -4,6 +4,10 @@ import { getSession } from "next-auth/client";
 export default async (req, res) => {
     const session = await getSession({ req })
     const {method} = req;
+
+    var today = new Date(), 
+    date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
     const {
         firstname,
         lastname,
@@ -25,6 +29,7 @@ export default async (req, res) => {
                     gender,
                     phone,
                     dob,
+                    update_date: date,
                 }
             }
         )

@@ -2,6 +2,11 @@ import bcrypt from 'bcrypt';
 import { connectToDatabase } from '../../../utils/mongodb';
 
 export default async (req,res) => {
+  var today = new Date(), 
+  date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+  
+
   const {method} = req
   const { username, password, email } = req.body;
 
@@ -36,7 +41,7 @@ export default async (req,res) => {
         //Inserting into the database
         const user = await db
           .collection('users')
-          .insertOne({ email, password: hashedPassword, username })
+          .insertOne({ email, password: hashedPassword, username, create_date: date })
           .then(({ ops }) => ops[0]);
 
           res.status(200).json({message: "success"});

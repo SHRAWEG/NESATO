@@ -33,7 +33,7 @@ function Invitation(props) {
 
     return (
         <>
-            <div className="flex-col bg-white py-5 rounded-2xl ml-10 mt-5 pr-10 w-full">
+            <div className="flex-col bg-white py-5 rounded-2xl right-10">
                 <div className="flex flex-col mx-8 gap-5 items-start">
                     <h1 className="text-3xl font-bold">Invitations</h1>
                         {props.invitations.map((invitation) => {
