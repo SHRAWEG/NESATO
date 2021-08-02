@@ -2,10 +2,10 @@ import React from 'react';
 import { useState } from 'react';
 
 function SearchPlayers(props) {
-    const [searchEmail, setSearchEmail] = useState('')
+    const [searchUsername, setSearchUsername] = useState('')
             
     const handleInvite = async (e) => {
-        const user = e.target.value
+        const userid = e.target.value
 
         try {
             const response = await fetch('/api/team/inviteApi',{
@@ -14,7 +14,7 @@ function SearchPlayers(props) {
                     'Content-Type' : 'application/JSON'
                 },
                 body: JSON.stringify({
-                    user: user,
+                    user_id: userid,
                     team_id: props.team._id,
                 }),
             })
@@ -51,22 +51,22 @@ function SearchPlayers(props) {
                             placeholder="Search.."
                             name="search"
                             onChange={(e) => {
-                                setSearchEmail(e.target.value);
+                                setSearchUsername(e.target.value);
                             }}
                             autoComplete="off"
                         />
 
                         {props.users.filter((val) => {
-                            if (searchEmail == "" ) {
+                            if (searchUsername == "" ) {
                                 return null
-                            } else if (val.email.toLowerCase().includes(searchEmail.toLowerCase())) {
+                            } else if (val.username.toLowerCase().includes(searchUsername.toLowerCase())) {
                                     return val
                             }
                             }).map((val, key) => (
-                                !(val.email == props.user.email) && (
+                                !(val.username == props.user.username) && (
                                     <div key={key} className="flex flex-col px-6 py-3 border-2 border-gray-400">
-                                        <p>{val.email}</p> 
-                                        <button type="submit" onClick={handleInvite} value={val.email} className="absolute ml-56 border border-gray-400 rounded-lg px-3 py-1">
+                                        <p>{val.username}</p> 
+                                        <button type="submit" onClick={handleInvite} value={val._id} className="absolute ml-56 border border-gray-400 rounded-lg px-3 py-1">
                                             Invite
                                         </button>
                                     </div>
