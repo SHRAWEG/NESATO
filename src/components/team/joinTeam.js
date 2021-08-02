@@ -72,24 +72,15 @@ export default function JoinTeam(props) {
                                 alreadyJoined = true;
                             }
                         })
-
-                        props.user.teams.map((team) =>{
-                            if(team.game == val.game){
-                                alreadyGame = true
-                            }
-                        })
-
-                        if (!alreadyJoined) {
-                            if (!alreadyGame){
-                                return (
-                                <div key={key} className="flex flex-col px-6 py-3 border-2 border-gray-400">
-                                    <p>{val.team_name} {val.game}</p> 
-                                    <button type="submit" onClick={handleRequest} value={val._id} className="absolute mb-12 ml-40 border border-gray-400 rounded-lg px-3 py-1">
-                                        Send Request
-                                    </button>
-                                </div>
-                                )
-                            }
+                        if (!alreadyGame){
+                            return (
+                            <div key={key} className="flex flex-col px-6 py-3 border-2 border-gray-400">
+                                <p>{val.team_name} {val.game}</p> 
+                                <button type="submit" onClick={handleRequest} value={val._id} className="absolute mb-12 ml-40 border border-gray-400 rounded-lg px-3 py-1">
+                                    Send Request
+                                </button>
+                            </div>
+                            )
                         }
                     }
                 )}

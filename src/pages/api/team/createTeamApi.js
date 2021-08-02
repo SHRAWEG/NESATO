@@ -5,6 +5,9 @@ export default async (req, res) => {
     const session = await getSession({req});
     const {method} = req;
 
+    var today = new Date(), 
+    date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
     let alreadyExists = false
 
     const {
@@ -35,6 +38,7 @@ export default async (req, res) => {
 
         const team = await db.collection('team').insertOne({
             team_name,
+            create_date: date,
             team_tag,
             team_cap : user._id,
             game,
@@ -42,7 +46,8 @@ export default async (req, res) => {
                 {
                     _id: user._id,
                     email: user.email,
-                    username : user.username
+                    username : user.username,
+                    join_date: date,
                 }
             ]
         }).then(({ops}) => ops[0]);

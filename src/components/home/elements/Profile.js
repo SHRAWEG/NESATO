@@ -1,9 +1,6 @@
 import Link from 'next/dist/client/link';
 import React from 'react'
 
-import { faUser } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 function Profile(props) {
     return (
         <>
@@ -13,7 +10,7 @@ function Profile(props) {
                     <p className="text-xl flex">
                         <img className="w-10 h-10" src = {"https://robohash.org//"+props.user.username+"?set=set5&&size=200x200" }/><span className="pl-2 mt-2.5">{props.user.username}</span></p>
                     <Link href="/userprofile">
-                        <button className="bg-yellow-500 text-gray-700 px-4 py-2 rounded-3xl font-bold">Update</button>
+                        <button className="bg-yellow-500 text-gray-900 hover:bg-gray-500 hover:text-gray-200 px-4 py-2 rounded-3xl font-bold transition duration-150 ease-in-out transform hover:scale-110 hover:-translate-y-1">View Profile</button>
                     </Link>  
                 </div>
             </div>
