@@ -35,6 +35,7 @@ export default async (req,res) => {
       }
 
       else {
+        var mongo = require('mongodb');
         //Encrypting password
         const hashedPassword = await bcrypt.hash(password, 12);
 

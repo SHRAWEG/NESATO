@@ -37,7 +37,6 @@ const Team = ( {teams, users} ) => {
             }
         ))
     }
-    
 
     return (
         <>
@@ -58,6 +57,7 @@ export const getStaticProps = async ({ params }) => {
 
     const users = await db.collection('users').find().toArray();
     
+
     return {
         props: {
             teams: JSON.parse(JSON.stringify(teams)),
