@@ -23,6 +23,9 @@ export default async (req, res) => {
 
         const sent_to = await db.collection('users').findOne({email: user})
         const sent_by = await db.collection('team').findOne({_id: o_id})
+
+        const team_count = sent_by.player_count()
+
         const invitation = await db.collection('invitation').find().toArray()
 
         JSON.parse(JSON.stringify(invitation)).map((data) => {

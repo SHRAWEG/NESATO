@@ -38,11 +38,12 @@ export default async (req, res) => {
             team_tag,
             team_cap : user._id,
             game,
+            player_count: 1,
             players: [
                 {
                     _id: user._id,
                     email: user.email,
-                    username : user.username
+                    username : user.username,
                 }
             ]
         }).then(({ops}) => ops[0]);
