@@ -4,6 +4,8 @@ import { getSession } from "next-auth/client";
 export default async (req, res) => {
     const {method} = req;
 
+    let alreadyJoined = false;
+
     const {
         user_id,
         team_id,
@@ -23,16 +25,16 @@ export default async (req, res) => {
         const sent_by = await db.collection('team').findOne({_id: t_id})
         const invitation = await db.collection('invitation').find().toArray()
 
-        await db.collection('team').update({
-            {_id : t_id},
+        await db.collection('team').update(
+            { _id : t_id },
             {
                 $pull : {
                     players: {
-                        $in: {_id : u_id}
+                        email : "shraweg@gmail.com"
                     }
                 }
-            }
-        }).then(({ops}) => ops[0]);
+            },
+        )
     }
 
     return res.status(200).json({message : "successful"})
