@@ -25,6 +25,8 @@ function TeamProfile(props) {
 
             if (response.status == 200) {
                 alert('Kicked'+'successfully sent')
+                router.replace("/team/"+props.team_id)
+                
             }
 
             else {
@@ -49,7 +51,7 @@ function TeamProfile(props) {
                         )}    
 
                         {props.team.players.map((player,  key) => (
-                            <div key = {key} className = "flex">
+                            <div key = {key} className = "flex  flex-nowrap border-1 w-32">
                                 {player.username}
                                 <br/>
                                 {player.email}

@@ -90,7 +90,7 @@ function SearchPlayers(props) {
                             }
                             }).map((val, key) => {
                                 return (
-                                    <div key={key} className="flex flex-col px-6 py-3 border-2 border-gray-400">
+                                    <div key={key} className="flex flex-col px-6 py-3 border-2 border-gray-400 rounded mb-1 w-5/12 z-50" >
                                     <p>{val.username}</p> 
                                     <button type="submit" onClick={handleInvite} id={val._id} value={val._id} className="absolute ml-56 border border-gray-400 rounded-lg px-3 py-1">
                                         Invite

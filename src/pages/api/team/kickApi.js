@@ -21,16 +21,27 @@ export default async (req, res) => {
 
         const {db} = await connectToDatabase();
 
-        const sent_to = await db.collection('users').findOne({_id: u_id})
-        const sent_by = await db.collection('team').findOne({_id: t_id})
-        const invitation = await db.collection('invitation').find().toArray()
+        // const sent_to = await db.collection('users').findOne({_id: u_id})
+        // const sent_by = await db.collection('team').findOne({_id: t_id})
+        // const invitation = await db.collection('invitation').find().toArray()
 
         await db.collection('team').update(
             { _id : t_id },
             {
                 $pull : {
                     players: {
-                        email : "shraweg@gmail.com"
+                        _id : u_id
+                    }
+                }
+            },
+        )
+
+        await db.collection('users').update(
+            { _id : u_id },
+            {
+                $pull : {
+                    teams: {
+                        _id : t_id
                     }
                 }
             },
