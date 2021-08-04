@@ -29,7 +29,7 @@ export default function HomeAuth( {team, invitation} ) {
   if(data) {
     return(
       <>
-          <Homepage user={data} invitation={invitation} team={team}  />
+          <Homepage self={data} invitation={invitation} team={team}  />
       </>
     )
   }

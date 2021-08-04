@@ -28,21 +28,17 @@ const userProfile = () => {
     if(isLoading) return <p>Loading...</p>
 
     if (data) {
-        console.log(data.firstname)
         return(
             <div>
-                <UpdateProfile firstname={data.firstname} lastname={data.lastname} address={data.address} phone={data.phone} gender={data.gender} dob={data.dob} />
+                <UpdateProfile self={data} />
             </div>
         )
     
     }
 
     return(
-        <UpdateProfile firstname="" lastname="" address="" phone="" gender="male" dob="" />
+        <UpdateProfile />
     )
-
- 
-
 }
 
 export default userProfile;

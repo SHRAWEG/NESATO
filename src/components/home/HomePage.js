@@ -11,16 +11,16 @@ function Homepage(props) {
             <>
                 {/* Profile and Team content on the left section */}
                 <div className="flex-col fixed w-2/12 mt-32 bg-scroll">
-                    <Profile user={props.user} />
+                    <Profile self={props.self} />
 
-                    <Team teams={props.user.teams}/>
+                    <Team teams={props.self.teams}/>
 
                     
                 </div>
 
                 {/* Right Section */}
                 <div className="fixed w-2/12 right-10 mt-32">
-                    <Invitation invitations={props.invitation} user={props.user} teams={props.team} />
+                    <Invitation invitations={props.invitation} self={props.self} teams={props.team} />
                 </div>
 
                 {/* Middle Section */}

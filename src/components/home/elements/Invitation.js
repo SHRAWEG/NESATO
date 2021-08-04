@@ -16,7 +16,7 @@ function Invitation(props) {
                 body: JSON.stringify({
                     invitation_id: invitation_id,
                     status: status,
-                    user_id: props.user._id,
+                    user_id: props.self._id,
                 }),
             })
 
@@ -33,11 +33,11 @@ function Invitation(props) {
 
     return (
         <>
-            <div className="flex-col bg-white py-5 rounded-2xl right-10">
+            <div className="flex-col bg-white py-5 rounded-2xl right-10 shadow-xl">
                 <div className="flex flex-col mx-8 gap-5 items-start">
                     <h1 className="text-3xl font-bold">Invitations</h1>
                         {props.invitations.map((invitation) => {
-                            if (invitation.status == "Pending" & invitation.sent_to == props.user._id) {
+                            if (invitation.status == "Pending" & invitation.sent_to == props.self._id) {
                                 return (
                                     props.teams.map((team, key) => (
                                         (team._id == invitation.sent_by) && (

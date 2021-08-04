@@ -3,19 +3,17 @@ import { useState, useEffect } from "react";
 import { getSession } from "next-auth/client";
 import {useRouter} from "next/router";
 import { connectToDatabase } from '../../utils/mongodb';
-// import { connectToDatabase } from "../../utils/mongodb";
-// import TeamProfile from '../../components/team/teamprofile';
-// import useSWR from 'swr';
+import useSWR from 'swr';
 
 import UserProfile from '../../components/userprofile/userProfile';
 
 
 const userProfile = ({users}) => {
+    const fetcher = (url) => fetch(url).then((res) => res.json());
+    const {data} = useSWR('/api/userprofile/getuserdata', fetcher)    
+
     const [isLoading, setIsLoading] = useState();
     const router = useRouter();
-
-    // const fetcher = (url) => fetch(url).then((res) => res.json());
-    // const {data} = useSWR('/api/userprofile/getuserdata', fetcher);
 
     useEffect(() => {
         getSession().then((session) =>{
@@ -39,11 +37,13 @@ const userProfile = ({users}) => {
             }
         ))
     }
-
-    console.log(user)
-
+    
     return (
-            <UserProfile user={user} /> 
+        <>
+            {data && (
+                <UserProfile user={user} self={data} /> 
+            )}
+        </>
     )
 }
 
