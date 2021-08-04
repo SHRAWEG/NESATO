@@ -5,8 +5,6 @@ export default async (req,res) => {
   var today = new Date(), 
   date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
-  
-
   const {method} = req
   const { username, password, email } = req.body;
 
