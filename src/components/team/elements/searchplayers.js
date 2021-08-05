@@ -6,6 +6,7 @@ function SearchPlayers(props) {
     const [searchUsername, setSearchUsername] = useState('')
 
     let players = [] 
+    let alreadyJoined
 
     if (props.invitations) {
         props.invitations.map((invitation) => {
@@ -21,10 +22,13 @@ function SearchPlayers(props) {
     props.users.map((user) => {
         if (user.teams) {
             user.teams.map((team) => {
-                if(team._id != props.team._id) {
-                    players.push(user)
+                if(team._id == props.team._id) {
+                    alreadyJoined = true;
                 }
             })
+            if (!alreadyJoined) {
+                players.push(user)
+            }
         } else {
             players.push(user)
         }
@@ -32,7 +36,6 @@ function SearchPlayers(props) {
             
     const handleInvite = async (e) => {
         const userid = e.target.value
-
         try {
             const response = await fetch('/api/team/inviteApi',{
                 method: 'POST',
@@ -66,41 +69,40 @@ function SearchPlayers(props) {
 
     return (
         <div className= "flex-col bg-white py-5 rounded-2xl ml-10 w-full h-full px-2 py-2">
-            
-                    <div>
-                        <label className="block text-gray-700 text-lg font-bold mb-2" >
-                            Add team members
-                        </label>
-                        <input
-                            className="shadow appearance-none border w-72 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            type="text"
-                            placeholder="Search.."
-                            name="search"
-                            onChange={(e) => {
-                                setSearchUsername(e.target.value);
-                            }}
-                            autoComplete="off"
-                        />
+            <div>
+                <label className="block text-gray-700 text-lg font-bold mb-2" >
+                    Add team members
+                </label>
+                <input
+                    className="shadow appearance-none border w-72 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="text"
+                    placeholder="Search.."
+                    name="search"
+                    onChange={(e) => {
+                        setSearchUsername(e.target.value);
+                    }}
+                    autoComplete="off"
+                />
 
-                        {players.filter((val) => {
-                            if (searchUsername == "" ) {
-                                return null
-                            } else if (val.username.toLowerCase().includes(searchUsername.toLowerCase())) {
-                                    return val
-                            }
-                            }).map((val, key) => {
-                                return (
-                                    <div key={key} className="flex flex-col px-6 py-3 border-2 border-gray-400 rounded mb-1 w-6/12 z-50" >
-                                    <p>{val.username}</p> 
-                                    <button type="submit" onClick={handleInvite} id={val._id} value={val._id} className="absolute ml-56 border border-gray-400 rounded-lg px-3 py-1">
-                                        Invite
-                                    </button>
-                                </div>
-                                )
-                            }    
-                            )
-                        }
-                    </div>
+                {players.filter((val) => {
+                    if (searchUsername == "" ) {
+                        return null
+                    } else if (val.username.toLowerCase().includes(searchUsername.toLowerCase())) {
+                            return val
+                    }
+                    }).map((val, key) => {
+                        return (
+                            <div key={key} className="flex flex-col px-6 py-3 border-2 border-gray-400 rounded mb-1 w-6/12 z-50" >
+                            <p>{val.username}</p> 
+                            <button type="submit" onClick={handleInvite} id={val._id} value={val._id} className="absolute ml-56 border border-gray-400 rounded-lg px-3 py-1">
+                                Invite
+                            </button>
+                        </div>
+                        )
+                    }    
+                    )
+                }
+            </div>
                 
         </div>
     )

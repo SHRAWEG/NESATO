@@ -7,8 +7,11 @@ function TeamProfile(props) {
     return(
             <>
                 {/* Profile and Team content on the left section */}
+                
                 <div className=" flex flex-col fixed w-2/12 mt-32 bg-scroll">
+                    {props.user._id == props.team.team_cap && (
                         <SearchPlayers  user={props.user} team={props.team} users={props.users} invitations={props.invitations}/>
+                    )}
                 </div>
 
                 {/* Right Section */}
