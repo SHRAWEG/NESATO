@@ -23,7 +23,7 @@ export default async (req, res) => {
 
         const sent_to = await db.collection('users').findOne({_id: u_id})
         const sent_by = await db.collection('team').findOne({_id: t_id})
-        const invitation = await db.collection('invitation').find().toArray()
+        // const invitation = await db.collection('invitation').find().toArray()
 
         const invitationCount = await db.collection('invitation').find({$and: [{sent_by: t_id}, {$or: [{status: "Pending"}, {status: "Accepted"}]}]}).count()
 
