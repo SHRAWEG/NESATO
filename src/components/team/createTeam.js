@@ -4,7 +4,6 @@ import { Formik } from 'formik';
 import fetch from 'isomorphic-unfetch';
 import router from 'next/router';
 import * as Yup from 'yup';
-import dotaLogo from '../../../public/img/gamelogos/dota2.png'
 
 
 const createTeam = () => {

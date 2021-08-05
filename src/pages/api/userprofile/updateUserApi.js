@@ -11,24 +11,30 @@ export default async (req, res) => {
     const {
         firstname,
         lastname,
-        address,
         gender,
         phone,
         dob,
+        street,
+        city,
+        bio
     } = req.body
 
     if (method == 'POST') {
         const { db } = await connectToDatabase();
-         await db.collection('users').update(
+         await db.collection('users').updateOne(
             {email : session.user.email},
             {
                 $set:{
                     firstname,
                     lastname,
-                    address,
                     gender,
-                    phone,
                     dob,
+                    address : {
+                        street,
+                        city
+                    },
+                    phone,
+                    bio,
                     update_date: date,
                 }
             }
