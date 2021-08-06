@@ -1,13 +1,14 @@
 import React from 'react';
-import { connectToDatabase } from "../../utils/mongodb";
-import TeamProfile from '../../components/team/TeamProfile';
+
+import { connectToDatabase } from "../../../utils/mongodb";
 import useSWR from 'swr';
+import UpdateTeam from '../../../components/team/updateTeam';
 
-const Team = ( {teams, users, invitations} ) => {
+const Team = ( {teams} ) => {
     const fetcher = (url) => fetch(url).then((res) => res.json());
-    const {data} = useSWR('/api/userprofile/getuserdata', fetcher)
+    const {data} = useSWR('/api/userprofile/getuserdata', fetcher);
 
-    let team
+    let team;
 
     if (teams) {
         teams.map((team1) => (
@@ -20,10 +21,12 @@ const Team = ( {teams, users, invitations} ) => {
     return (
         <>
             {data && (
-                <TeamProfile user={data} users={users} team={team} invitations={invitations} />
+                <UpdateTeam self={data} team={team}/>
             )}  
         </>
     )
+
+    
     
 }
 
@@ -34,14 +37,10 @@ export const getStaticProps = async ({ params }) => {
     const { db } = await connectToDatabase();
 
     const teams = await db.collection('team').find({_id: o_id}).toArray();
-    const users = await db.collection('users').find().toArray();
-    const invitations = await db.collection('invitation').find().toArray();
 
     return {
         props: {
             teams: JSON.parse(JSON.stringify(teams)),
-            users: JSON.parse(JSON.stringify(users)),
-            invitations: JSON.parse(JSON.stringify(invitations)),
         },
         revalidate: 1,
     }
@@ -61,5 +60,7 @@ export const getStaticPaths = async () => {
         fallback : true
     };
 }
+
+
 
 export default Team;

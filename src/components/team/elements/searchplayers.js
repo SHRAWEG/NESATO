@@ -10,21 +10,13 @@ function SearchPlayers(props) {
     const [searchUsername, setSearchUsername] = useState('')
 
     let players = [] 
-<<<<<<< HEAD
-    let alreadyJoined = false;
-=======
     let alreadyJoined
-    // let alreadyInvited=false;
-
-    console.log(props.team._id)
->>>>>>> 5a2dafbf77b917fd8bd3a227586eab96c7038d20
+    let alreadyInvited = []
 
     if (props.invitations) {
         props.invitations.map((invitation) => {
             if(invitation.status == "Pending" && invitation.sent_by == props.team._id) {
-                if (document.getElementById(invitation.sent_to)) {
-                    (document.getElementById(invitation.sent_to)).innerHTML = "Invited";
-                }
+                alreadyInvited.push(invitation.sent_to)
             }
         })
     }
@@ -36,20 +28,13 @@ function SearchPlayers(props) {
                     alreadyJoined = true;
                 }
             })
-<<<<<<< HEAD
-            
             if (!alreadyJoined) {
                 players.push(user)
             }
-
-=======
-            if (!alreadyJoined) {
-                players.push(user)
-            }
->>>>>>> 5a2dafbf77b917fd8bd3a227586eab96c7038d20
         } else {
             players.push(user)
         }
+        alreadyJoined=false;
     })
 
     const handleInvite = async (e) => {
@@ -110,7 +95,7 @@ function SearchPlayers(props) {
                     } else if (val.username.toLowerCase().includes(searchUsername.toLowerCase())) {
                         return val
                     }
-                    }).slice(0,5).map((val, key) => {
+                    }).map((val, key) => {
                         return (
                             <div key={key} className="each flex rounded shadow text-gray-600 mb-5 bg-white">
                                 <div className="sec self-center p-2 pr-1">
@@ -123,6 +108,10 @@ function SearchPlayers(props) {
                                 </div>
                                 <div id={val._id} className="sec self-center p-2 w-2/8 font-bold">
                                     <button onClick={handleInvite} value={val._id} className="font-bold bg-gray-200 rounded-xl px-3 py-1 ">
+                                        {alreadyInvited.map((v) => {
+                                            if(val._id == v)
+                                                <span>Invited</span>
+                                        })}
                                         Invite
                                     </button>
                                 </div>
