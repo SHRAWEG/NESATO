@@ -14,6 +14,7 @@ export default async (req, res) => {
         team_name,
         team_tag,
         game,
+        bio,
     } = req.body ;
 
     if (method =='POST') {
@@ -42,6 +43,7 @@ export default async (req, res) => {
             team_tag,
             team_cap : user._id,
             game,
+            bio,
             player_count: 1,
             players: [
                 {
