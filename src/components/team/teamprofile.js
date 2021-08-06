@@ -15,14 +15,16 @@ function TeamProfile(props) {
                 </div>
 
                 {/* Right Section */}
-                <div className="flex flex-col gap-2 fixed w-2/12 right-10 mt-28">
+                <div className="flex flex-col gap-2 fixed w-2/12 right-10 mt-32">
                     <div className="flex-col bg-white py-5 rounded-2xl right-10 font-bold">
                         Achievements
                     </div>
                 </div>
 
                 {/* centre main area */}
-                <TeamInfo user = {props.user} team = {props.team} />
+                <div className="container mx-auto flex flex-col items-center whitespace-nowrap gap-x-5 mb-10">
+                    <TeamInfo user = {props.user} team = {props.team} />
+                </div>
             </>
     )
 }

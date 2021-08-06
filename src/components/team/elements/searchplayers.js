@@ -75,7 +75,8 @@ function SearchPlayers(props) {
     }
 
     return (
-        <div className= "flex-col bg-white py-5 rounded-2xl ml-10 w-full h-full px-2 py-2 gap10">
+
+            <div className= "flex-col bg-white py-5 rounded-2xl ml-10 w-full h-full px-2 py-2 gap10">
             <div>
                 <label className="block text-gray-700 text-lg font-bold mb-2" >
                     Add team members
@@ -121,6 +122,7 @@ function SearchPlayers(props) {
             </div>
                 
         </div>
+       
     )
 }
 
