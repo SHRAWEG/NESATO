@@ -17,10 +17,10 @@ function Team(props) {
                         {props.teams && (
                             props.teams.map((team, key) => (
                                 <div key={key}>
-                                    <h1 className="text-xl">{team.game}</h1>
+                                    <h1 className="text-xl font-paragraph">{team.game}</h1>
                                     <Link href = {'/team/' + team._id } >
                                         <a>
-                                            <p className="text-lg mb-4"><span className="pl-2">{team.team_name}</span></p>
+                                            <p className="text-lg mb-4 font-paragraph"><span className="pl-2">{team.team_name}</span></p>
                                         </a>
                                     </Link>
                                 </div>

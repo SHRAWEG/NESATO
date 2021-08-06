@@ -10,7 +10,7 @@ export default function Layout({ children }) {
   return (
     <>
         <Header />
-        <main className="bg-gray-200 font-body w-screen h-full min-h-screen">
+        <main className="bg-gray-200 font-body w-full h-full min-h-screen">
           <div className="flex fixed justify-center shadow-2xl pb-4 w-screen bg-gray-700 z-50">
             <Link href="/">
               <a className="w-40 mt-4"><Image src={nesaLogo} alt="Nesa Logo" /></a>

@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Electrolize');
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300&display=swap');
+
 
 
 @tailwind base;
@@ -23,6 +25,7 @@
     }
 }
 
-.navbar {
-    
+.font-paragraph {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: 800;
 }

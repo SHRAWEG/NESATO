@@ -8,7 +8,7 @@ function Profile(props) {
                 <div className="flex flex-col mx-8 gap-y-5 items-start">
                     <h1 className="text-3xl font-bold">Profile</h1>
                     <p className="text-xl flex">
-                        <img className="w-10 h-10" src = {"https://robohash.org//"+props.self.username+"?set=set5&&size=200x200" }/><span className="pl-2 mt-2.5">{props.self.username}</span></p>
+                        <img className="w-10 h-10" src = {"https://robohash.org//"+props.self.username+"?set=set5&&size=200x200" }/><span className="pl-2 mt-2.5 font-paragraph">{props.self.username}</span></p>
                     <Link href={"/userprofile/" + props.self._id}>
                         <button className="bg-yellow-500 text-gray-900 hover:bg-gray-500 hover:text-gray-200 px-4 py-2 rounded-3xl font-bold transition duration-150 ease-in-out transform hover:scale-110 hover:-translate-y-1">View Profile</button>
                     </Link>  

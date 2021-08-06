@@ -1,9 +1,8 @@
 import React from 'react';
-import UserForm from './elements/UserForm';
-import UserProfilePic from './elements/UserProfilePic';
+import GameForm from './elements/GameForm';
 
 
-function UpdateProfile(props) {
+function AddGames(props) {
 
     return (
         <>
@@ -11,11 +10,7 @@ function UpdateProfile(props) {
                 <div className="bg-white h-auto rounded-2xl whitespace-normal px-10 py-10 w-8/12 items-center mt-32 mb-6" id="midMain">
                     {props.self && (
                         <>
-                            <UserProfilePic user={props.self} />
-
-                            <hr />
-                            
-                            <UserForm self={props.self} />
+                            <GameForm self={props.self} />
                         </>
                     )}
                     
@@ -27,4 +22,4 @@ function UpdateProfile(props) {
     )
 }
 
-export default UpdateProfile;
+export default AddGames;

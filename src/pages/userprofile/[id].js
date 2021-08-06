@@ -12,22 +12,6 @@ const userProfile = ({users}) => {
     const fetcher = (url) => fetch(url).then((res) => res.json());
     const {data} = useSWR('/api/userprofile/getuserdata', fetcher)    
 
-    const [isLoading, setIsLoading] = useState();
-    const router = useRouter();
-
-    useEffect(() => {
-        getSession().then((session) =>{
-            if(!session) {
-                router.replace("/");
-            }
-            else {
-                setIsLoading(false);
-            }
-        });
-    },[router]);
-
-    if (isLoading) return <p> loading... </p>;
-
     let user
 
     if (users) {
