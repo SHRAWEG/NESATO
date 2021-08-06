@@ -6,6 +6,7 @@ function SearchPlayers(props) {
     const [searchUsername, setSearchUsername] = useState('')
 
     let players = [] 
+    let alreadyJoined = false;
 
     if (props.invitations) {
         props.invitations.map((invitation) => {
@@ -21,10 +22,15 @@ function SearchPlayers(props) {
     props.users.map((user) => {
         if (user.teams) {
             user.teams.map((team) => {
-                if(team._id != props.team._id) {
-                    players.push(user)
+                if(team._id == props.team._id) {
+                    alreadyJoined = true;
                 }
             })
+            
+            if (!alreadyJoined) {
+                players.push(user)
+            }
+
         } else {
             players.push(user)
         }
@@ -86,7 +92,7 @@ function SearchPlayers(props) {
                             if (searchUsername == "" ) {
                                 return null
                             } else if (val.username.toLowerCase().includes(searchUsername.toLowerCase())) {
-                                    return val
+                                        return val;
                             }
                             }).map((val, key) => {
                                 return (

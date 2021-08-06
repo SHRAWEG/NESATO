@@ -7,26 +7,8 @@ import TeamProfile from '../../components/team/TeamProfile';
 import useSWR from 'swr';
 
 const Team = ( {teams, users, invitations} ) => {
-    const [isLoading, setIsLoading] = useState();
-    const router = useRouter();
-
     const fetcher = (url) => fetch(url).then((res) => res.json());
     const {data} = useSWR('/api/userprofile/getuserdata', fetcher)
-
-    useEffect(() => {
-        getSession().then((session) =>{
-            if(!session) {
-                router.replace("/");
-            }
-            else {
-                setIsLoading(false);
-            }
-        });
-    },[router]);
-
-    
-
-    if (isLoading) return <p> loading... </p>;
 
     let team
 

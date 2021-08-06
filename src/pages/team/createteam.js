@@ -6,21 +6,6 @@ import CreateTeam from '../../components/team/createTeam';
 
 
 const createTeam = () => {
-    const [isLoading, setIsLoading] = useState();
-    const router = useRouter();
-
-    useEffect(() => {
-        getSession().then((session) =>{
-            if(!session) {
-                router.replace("/");
-            }
-            else {
-                setIsLoading(false);
-            }
-        });
-    },[router]);
-
-    if (isLoading) return <p> loading... </p>;
 
     return (
         <>
