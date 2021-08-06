@@ -10,10 +10,14 @@ function SearchPlayers(props) {
     const [searchUsername, setSearchUsername] = useState('')
 
     let players = [] 
+<<<<<<< HEAD
+    let alreadyJoined = false;
+=======
     let alreadyJoined
     // let alreadyInvited=false;
 
     console.log(props.team._id)
+>>>>>>> 5a2dafbf77b917fd8bd3a227586eab96c7038d20
 
     if (props.invitations) {
         props.invitations.map((invitation) => {
@@ -32,9 +36,17 @@ function SearchPlayers(props) {
                     alreadyJoined = true;
                 }
             })
+<<<<<<< HEAD
+            
             if (!alreadyJoined) {
                 players.push(user)
             }
+
+=======
+            if (!alreadyJoined) {
+                players.push(user)
+            }
+>>>>>>> 5a2dafbf77b917fd8bd3a227586eab96c7038d20
         } else {
             players.push(user)
         }

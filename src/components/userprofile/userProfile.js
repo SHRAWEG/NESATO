@@ -3,6 +3,7 @@ import Team from '../home/elements/Team'
 import UserProfilePic from './elements/UserProfilePic'
 import UserDetails from './elements/UserDetails'
 import TournamentsPlayed from './elements/TournamentsPlayed'
+import GamerIds from './elements/GamerIds'
 
 function UserProfile(props) {
 
@@ -12,6 +13,8 @@ function UserProfile(props) {
             {/* Left Section */}
             <div className="flex-col fixed w-2/12 mt-24 bg-scroll">
                 <Team teams={props.user.teams} />
+
+                <GamerIds />
             </div>
 
             {/* Right Section */}
@@ -20,14 +23,14 @@ function UserProfile(props) {
             </div>
 
             {/* Middle Section */}
-            <div className="container mx-auto flex flex-col items-center whitespace-nowrap gap-x-5 mb-10">
-                <div className="bg-white h-auto rounded-2xl whitespace-normal px-10 py-5 w-8/12 items-center mt-32" id="midMain">
+            <div className="container mx-auto flex flex-col items-center whitespace-nowrap gap-x-5">
+                <div className="bg-white h-auto rounded-2xl whitespace-normal px-10 py-10 w-8/12 items-center mt-32" id="midMain">
                         <>
                             <UserProfilePic user={props.user} self={props.self} />
 
                             <hr />
 
-                            <UserDetails user={props.user} />
+                            <UserDetails user={props.user} teams={props.user.teams} />
 
                         </>    
                 </div>
