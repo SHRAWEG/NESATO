@@ -30,7 +30,7 @@ function UserProfile(props) {
 
                             <hr />
 
-                            <UserDetails user={props.user} teams={props.user.teams} />
+                            <UserDetails user={props.user} self={props.self} teams={props.user.teams} />
 
                         </>    
                 </div>
