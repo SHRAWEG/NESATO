@@ -56,7 +56,7 @@ export default async (req, res) => {
         }).then(({ops}) => ops[0]);
 
         await db.collection('users').updateOne(
-            {email : session.user.email},
+            {email : session.user.email,},
             {
                 $push:{
                     teams: 
