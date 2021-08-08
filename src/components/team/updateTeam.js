@@ -16,7 +16,7 @@ function UpdateTeam(props) {
     
                                 <hr />
                                
-                                <TeamUpdateForm team={props.team}/>
+                                <TeamUpdateForm team={props.team} user={props.self}/>
                             </>
                     </div>
                 </div>

@@ -81,7 +81,14 @@ export default function TeamInfo(props) {
                     <div id="bio" className="text-xl w-full ml-3 mt-5">
                         <label htmlFor="bio">Bio:</label>
                         <p id="bio" className="w-full h-32 border-gray-200 border-2 focus:outline-none focus:border-yellow-200 rounded-2xl resize-none pl-2 pt-2 font-paragraph" >
-                            {props.team.bio}
+                            {props.team.bio.split('\n').map(function(item, key) {
+                                return (
+                                    <span key={key}>
+                                        {item}
+                                        <br/>
+                                    </span>
+                                )
+                            })}
                         </p>
                     </div>
                     

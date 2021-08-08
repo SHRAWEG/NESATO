@@ -39,7 +39,7 @@ function SearchPlayers(props) {
 
     const handleInvite = async (e) => {
         const user_id = e.target.value
-        console.log(e.target.value)
+
         try {
             const response = await fetch('/api/team/inviteApi',{
                 method: 'POST',
@@ -54,6 +54,7 @@ function SearchPlayers(props) {
 
             const json = await response.json();
             console.log(json.message);
+
          
 
             if (response.status == 200) {

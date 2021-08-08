@@ -16,22 +16,23 @@ function TeamLogo(props) {
                 
                 
 
-                {props.user && (
-                    props.user._id == props.team.team_cap && (
-                        <>
-                        <div>
-                            {props.team.team_name}
-                        </div>
+                
+            <div>
+                {props.team.team_name}
+            </div>
+            {props.user && (
+                props.user._id == props.team.team_cap && (
+                    <>
                         <div className="flex justify-end w-full">
-                            <Link href="">
+                            <Link href={"/team/update/"+props.team._id}>
                                 <a>
                                     <FontAwesomeIcon icon={faEdit} className="text-3xl z-10 hover:text-gray-500 transition duration-150 ease-in-out transform hover:scale-110 hover:-translate-y-1" />
                                 </a>
                             </Link>
                         </div> 
-                        </>
-                    )
-                )}
+                    </>
+                )
+            )}
                 
                 
             </div>
