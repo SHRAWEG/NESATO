@@ -10,6 +10,7 @@ const Header = () => {
                 <title>NESA</title>
                 <meta name="description" content="Nesa App" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <script src="dist/clipboard.min.js"></script>
             </Head>
         </>
     )

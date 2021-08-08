@@ -38,6 +38,7 @@ function GameForm(props) {
                 id: e.target.id.value,
                 game: e.target.game.value,
                 id_name: e.target.id_name.value,
+                label: e.target.label.value
             }),
             headers: {
             'Content-Type': 'application/json'
@@ -76,13 +77,13 @@ function GameForm(props) {
                         }
                         }).map((val, key) => {
 
-                            let idd 
+                            let id_value
 
                             if (props.self.gamer_id) {
                                 props.self.gamer_id.map((id) => {
-                                    if(id[val.id]) {
-                                        idd = id[val.id]
+                                    if(id.id_name == val.id) {
                                         idExists = true
+                                        id_value = id.id
                                     }
                                 })
                             }
@@ -105,7 +106,7 @@ function GameForm(props) {
                                                         className="border-gray-400 border-2 w-80 hover:border-yellow-500 focus:outline-none focus:border-yellow-200 rounded-full h-10 pl-4 text-black-500"
                                                         id="id"
                                                         name={val.id}
-                                                        value={idd}
+                                                        value={id_value}
                                                         disabled
                                                         autoComplete= "off"
                                                     />
@@ -119,6 +120,12 @@ function GameForm(props) {
                                                         className="hidden"
                                                         id="id_name"
                                                         value={val.id}
+                                                        readOnly
+                                                    />
+                                                    <input
+                                                        className="hidden"
+                                                        id="label"
+                                                        value={val.label}
                                                         readOnly
                                                     />
                                                 </div>
@@ -165,6 +172,12 @@ function GameForm(props) {
                                                     value={val.id}
                                                     readOnly
                                                 />
+                                                <input
+                                                        className="hidden"
+                                                        id="label"
+                                                        value={val.label}
+                                                        readOnly
+                                                    />
                                             </div>
                                             
                                             <div>

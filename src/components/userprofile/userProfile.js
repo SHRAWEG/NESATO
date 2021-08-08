@@ -14,12 +14,13 @@ function UserProfile(props) {
             <div className="flex-col fixed w-2/12 mt-24 bg-scroll">
                 <Team teams={props.user.teams} />
 
-                <GamerIds />
             </div>
 
             {/* Right Section */}
             <div className="fixed w-2/12 right-10 mt-32">
                 <TournamentsPlayed />
+
+                <GamerIds user={props.user} />
             </div>
 
             {/* Middle Section */}

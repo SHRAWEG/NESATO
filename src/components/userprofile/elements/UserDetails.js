@@ -96,8 +96,8 @@ function UserDetails(props) {
                     
                     <div className="flex ">
                         {props.user.games && (
-                            props.user.games.map((game) => (
-                                <div className="w-32 mr-10">
+                            props.user.games.map((game, key) => (
+                                <div key={key} className="w-32 mr-10">
                                     <Image src={require('../../../../public/img/gamelogos/' + game.name + '.png')} />
                                 </div>
                             ))

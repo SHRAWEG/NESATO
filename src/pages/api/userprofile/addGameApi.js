@@ -9,6 +9,7 @@ export default async (req, res) => {
         id,
         id_name,
         game,
+        label,
     } = req.body
 
     if (method == 'POST') {
@@ -20,7 +21,7 @@ export default async (req, res) => {
 
         if(user.gamer_id)
             user.gamer_id.map((ids) => {
-                if(ids[id_name]) {
+                if(ids.id_name == id_name) {
                     idExists = true;
                 }
             })
@@ -45,7 +46,9 @@ export default async (req, res) => {
                             name: game
                         },
                         gamer_id: {
-                            [id_name] : id,
+                            id_name,
+                            id,
+                            label,
                         }      
                     }
                 }
