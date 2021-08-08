@@ -19,12 +19,13 @@ function UserDetails(props) {
 
     let captainCount = 0;
 
-    props.user.teams.map((team) => {
-        if (team.isCaptain == true) {
-            captainCount = captainCount + 1
-        }
-    })
-
+    if(props.user.teams) {
+        props.user.teams.map((team) => {
+            if (team.isCaptain == true) {
+                captainCount = captainCount + 1
+            }
+        })
+    }
     return (
         <>
             <div className="flex w-full justify-between gap-8 h-auto">

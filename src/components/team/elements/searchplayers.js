@@ -11,16 +11,12 @@ function SearchPlayers(props) {
 
     let players = [] 
     let alreadyJoined
-    // let alreadyInvited=false;
-
-    console.log(props.team._id)
+    let alreadyInvited = []
 
     if (props.invitations) {
         props.invitations.map((invitation) => {
             if(invitation.status == "Pending" && invitation.sent_by == props.team._id) {
-                if (document.getElementById(invitation.sent_to)) {
-                    (document.getElementById(invitation.sent_to)).innerHTML = "Invited";
-                }
+                alreadyInvited.push(invitation.sent_to)
             }
         })
     }
@@ -38,12 +34,12 @@ function SearchPlayers(props) {
         } else {
             players.push(user)
         }
-        alreadyJoined = false;
+        alreadyJoined=false;
     })
 
     const handleInvite = async (e) => {
         const user_id = e.target.value
-        console.log(e.target.value)
+
         try {
             const response = await fetch('/api/team/inviteApi',{
                 method: 'POST',
@@ -58,6 +54,7 @@ function SearchPlayers(props) {
 
             const json = await response.json();
             console.log(json.message);
+
          
 
             if (response.status == 200) {
@@ -76,7 +73,8 @@ function SearchPlayers(props) {
     }
 
     return (
-        <div className= "flex-col bg-white py-5 rounded-2xl ml-10 w-full h-full px-2 py-2 gap10">
+
+            <div className= "flex-col bg-white py-5 rounded-2xl ml-10 w-full h-full px-2 py-2 gap10">
             <div>
                 <label className="block text-gray-700 text-lg font-bold mb-2" >
                     Add team members
@@ -98,7 +96,7 @@ function SearchPlayers(props) {
                     } else if (val.username.toLowerCase().includes(searchUsername.toLowerCase())) {
                         return val
                     }
-                    }).slice(0,5).map((val, key) => {
+                    }).map((val, key) => {
                         return (
                             <div key={key} className="each flex rounded shadow text-gray-600 mb-5 bg-white">
                                 <div className="sec self-center p-2 pr-1">
@@ -111,6 +109,10 @@ function SearchPlayers(props) {
                                 </div>
                                 <div id={val._id} className="sec self-center p-2 w-2/8 font-bold">
                                     <button onClick={handleInvite} value={val._id} className="font-bold bg-gray-200 rounded-xl px-3 py-1 ">
+                                        {alreadyInvited.map((v) => {
+                                            if(val._id == v)
+                                                <span>Invited</span>
+                                        })}
                                         Invite
                                     </button>
                                 </div>
@@ -122,6 +124,7 @@ function SearchPlayers(props) {
             </div>
                 
         </div>
+       
     )
 }
 
