@@ -30,7 +30,9 @@ export default function Layout({ children }) {
           <div className="">
             {children}
           </div>
+          
         </main>
+        
     </>
   )
 }

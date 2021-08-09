@@ -103,14 +103,14 @@ function UserForm(props) {
                         onSubmit={formik.handleSubmit}
                     >
                         <legend className="text-2xl border-yellow-500 border-l-4 pl-2 mt-10">Basic Information</legend>
-                        <div className="flex flex-col text-xl w-full ml-5 mt-2">
+                        <div className="flex flex-col text-xl w-full ml-5 mt-2 pr-10">
                             <label className="mt-1 font-semibold" htmlFor="bio">
                                 Bio:
                             </label>
                             <textarea 
                                 type="text" 
                                 id="bio" 
-                                className="w-96 h-32 border-gray-200 border-2 hover:border-yellow-500 focus:outline-none focus:border-yellow-200 rounded-2xl resize-none p-2 pl-4"
+                                className="w-full h-32 border-gray-200 border-2 hover:border-yellow-500 focus:outline-none focus:border-yellow-200 rounded-2xl resize-none p-2 pl-4"
                                 name="bio"
                                 placeholder="Write something about you..."
                                 value = {formik.values.bio}
