@@ -1,8 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
 import { useState } from 'react';
-import csgo from '../../../../public/img/games/csgo.jpg'
-import dota2 from '../../../../public/img/games/dota2.jpg'
 import router from 'next/router';
 
 function GameForm(props) {
@@ -33,12 +31,12 @@ function GameForm(props) {
         e.preventDefault()
 
 
-        const res = await fetch('/api/userprofile/addGameApi', {
+        const res = await fetch('/api/userprofile/games/addGameApi', {
             body: JSON.stringify({
                 id: e.target.id.value,
                 game: e.target.game.value,
                 id_name: e.target.id_name.value,
-                label: e.target.label.value
+                id_label: e.target.label.value
             }),
             headers: {
             'Content-Type': 'application/json'
@@ -47,7 +45,7 @@ function GameForm(props) {
             })
 
         if (res.status == 200) {
-            router.push('/userprofile/' + props.self._id)
+            router.replace('/userprofile/' + props.self._id)
         }
     }
 
@@ -79,17 +77,19 @@ function GameForm(props) {
 
                             let id_value
 
-                            if (props.self.gamer_id) {
-                                props.self.gamer_id.map((id) => {
-                                    if(id.id_name == val.id) {
+                            if (props.self.games) {
+                                props.self.games.map((game) => {
+                                    if(game.id_name == val.id) {
                                         idExists = true
-                                        id_value = id.id
+                                        id_value = game.id
                                     }
                                 })
                             }
 
                             if (idExists) {
                                 idExists = false
+
+                                const [gameId, setIdValue] = useState(id_value);
 
                                 return (
                                     <form key={key} onSubmit={handleSubmit}>
@@ -103,11 +103,11 @@ function GameForm(props) {
                                                         {val.label}
                                                     </label>
                                                     <input
-                                                        className="border-gray-400 border-2 w-80 hover:border-yellow-500 focus:outline-none focus:border-yellow-200 rounded-full h-10 pl-4 text-black-500"
+                                                        className="border-gray-400 border-2 w-96 hover:border-yellow-500 focus:outline-none focus:border-yellow-200 rounded-full h-10 pl-4 text-black-500"
                                                         id="id"
                                                         name={val.id}
-                                                        value={id_value}
-                                                        disabled
+                                                        value={gameId}
+                                                        onChange={(e) => {setIdValue(e.target.value)}}
                                                         autoComplete= "off"
                                                     />
                                                     <input
@@ -157,7 +157,6 @@ function GameForm(props) {
                                                     className="border-gray-400 border-2 w-80 hover:border-yellow-500 focus:outline-none focus:border-yellow-200 rounded-full h-10 pl-4 text-black-500"
                                                     id="id"
                                                     name={val.id}
-                                                    required
                                                     autoComplete= "off"
                                                 />
                                                 <input
@@ -173,11 +172,11 @@ function GameForm(props) {
                                                     readOnly
                                                 />
                                                 <input
-                                                        className="hidden"
-                                                        id="label"
-                                                        value={val.label}
-                                                        readOnly
-                                                    />
+                                                    className="hidden"
+                                                    id="label"
+                                                    value={val.label}
+                                                    readOnly
+                                                />
                                             </div>
                                             
                                             <div>
