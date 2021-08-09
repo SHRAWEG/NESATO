@@ -1,7 +1,7 @@
 import React from 'react'
 import useSWR from 'swr';
-import AddGames from '../../components/userprofile/AddGames'
-import {connectToDatabase} from '../../utils/mongodb'
+import AddGames from '../../../components/userprofile/AddGames'
+import {connectToDatabase} from '../../../utils/mongodb'
 
 export default function addgames({games}) {
     const fetcher = (url) => fetch(url).then((res) => res.json());
