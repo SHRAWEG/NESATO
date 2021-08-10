@@ -1,7 +1,9 @@
-import React from "react";
-import router from "next/router";
+import React, { useState } from 'react';
+import Router from 'next/router'
 import Image from 'next/image'
-import TeamLogo from "./teamLogo";
+
+import { loadGetInitialProps } from 'next/dist/next-server/lib/utils';
+
 
 
 export default function TeamInfo(props) {
@@ -11,8 +13,16 @@ export default function TeamInfo(props) {
     let year = createDate.getFullYear();
     let date = createDate.getDate();
 
+    const [isOpen, setIsOpen] = useState(false);
+    const [uId, setUId] = useState("");
+    const togglePopup = (uid) => {
+        setIsOpen(!isOpen)  
+        setUId(uid)     
+    }
+
     const handleKick = async (e) => {
-        const userid = e.target.value
+        // console.log(uId)
+        const userid = uId
         try {
             const response = await fetch('/api/team/kickApi',{
                 method: 'POST',
@@ -31,7 +41,9 @@ export default function TeamInfo(props) {
 
             if (response.status == 200) {
                 alert('Kicked'+'successfully sent')
-                router.replace("/team/"+props.team_id)
+                // router.replace("/team/"+props.team_id)
+                Router.reload(window.location.pathname);
+                console.log(window.location.pathname)
                 
             }
 
@@ -47,11 +59,7 @@ export default function TeamInfo(props) {
     }
 
     return (
-        <>
-            {/* <div className="bg-white h-auto rounded-2xl whitespace-normal px-10 py-5 w-8/12 items-center mt-28" > */}
-                {/* <TeamLogo user={props.user} team={props.team}/> */}
-
-                
+        <>  
                 <div>
                     <hr/>
                     <legend className="text-2xl mb-5 border-yellow-500 border-l-4 pl-2 mt-5">
@@ -95,40 +103,63 @@ export default function TeamInfo(props) {
                         </p>
                     </div>
                     
-                        <legend className="text-xl mb-5 border-yellow-500 border-l-4 pl-2 mt-10">Team Members</legend>
-                        <div className="flex gap-5 flex-col w-full mb-4">
-                            {props.team.players.map((player, key) => (
-                                <div key={key} className="">
-                                    <label htmlFor="csgoign" className="flex bg-gray-50 hover:bg-gray-200 p-3 rounded-xl w-full items-center justify-between">
-                                        <div className="flex font-medium gap-3">
-                                            <img src={"https://robohash.org/"+player.username+"?set=set5"} className="w-12 h-12 rounded-3xl bg-blue-100"/>
-                                            <div className="ml-3">
-                                                <a href={"http://localhost:3000/userprofile/"+player._id} className="text-2xl w-auto font-semibold hover:text-yellow-600">
-                                                    {player.username}
-                                                </a>
-                                                <p  className="text-sm font-normal text-gray-700 font-paragraph">
-                                                    Member since : {player.join_date}
-                                                </p>
-                                            </div>           
-                                        </div>
-                                        {props.user._id == props.team.team_cap && (
+                    <legend className="text-xl mb-5 border-yellow-500 border-l-4 pl-2 mt-10">Team Members</legend>
+                    <div className="flex gap-5 flex-col w-full mb-4">
+                        {props.team.players.map((player, key) => (
+                            <div key={key} className="">
+                                <label htmlFor="csgoign" className="flex bg-gray-50 hover:bg-gray-200 p-3 rounded-xl w-full items-center justify-between">
+                                    <div className="flex font-medium gap-3">
+                                        <img src={"https://robohash.org/"+player.username+"?set=set5"} className="w-12 h-12 rounded-3xl bg-blue-100"/>
+                                        <div className="ml-3">
+                                            <a href={"http://localhost:3000/userprofile/"+player._id} className="text-2xl w-auto font-semibold hover:text-yellow-600">
+                                                {player.username}
+                                            </a>
+                                            <p  className="text-sm font-normal text-gray-700 font-paragraph">
+                                                Member since : {player.join_date}
+                                            </p>
+                                        </div>           
+                                    </div>
+                                    {props.user._id == props.team.team_cap && (
                                         <>
-                                        {!(player.username == props.user.username) && (
-                                            <button type="submit" onClick={handleKick} value={player._id} className="border font-semibold text-xl border-red-300 rounded-xl hover:bg-red-600 px-7 py-2">
-                                                Kick
-                                            </button>
-                                        )}
+                                            {!(player.username == props.user.username) && (
+                                                <div id={player.username}>  
+                                                    
+                                                    <button type="button" onClick={() =>togglePopup(player._id)} className="border font-semibold text-xl border-red-300 rounded-xl hover:bg-red-600 px-7 py-2">
+                                                        Kick
+                                                    </button>
+                                                </div>
+                                            )}
                                         </>
-                                    )}
-                                    </label>
-                                    
-                                </div>
-                            ))}
-                                                        
+                                )}
+                                </label>
+                                
+                            </div>
+                        ))}
+                                                    
                     </div>
                     <hr/>
+                    
+                    
                 </div>
-            {/* </div> */}
+
+                {
+                    isOpen && 
+                    <div className="w-11/12">
+                        <div className=" ">
+                            <div>
+                                <p className="font-meduim text-lg">Are you sure you want to kick {" "+" "} ?</p>
+                            </div>
+                            <div className="flex flex-row  gap-14 items-center justify-center">
+                                <button type="submit" onClick={handleKick}  className="border font-semibold text-lg border-red-300 rounded-xl hover:bg-red-600 px-6">
+                                    Yes
+                                </button>
+                                <button type="button" onClick={togglePopup}  className="border font-semibold text-lg border-yellow-300 rounded-xl hover:bg-yellow-500 px-6">
+                                    No
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
         </>
     )
 }

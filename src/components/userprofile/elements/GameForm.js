@@ -1,8 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
 import { useState } from 'react';
-import csgo from '../../../../public/img/games/csgo.jpg'
-import dota2 from '../../../../public/img/games/dota2.jpg'
 import router from 'next/router';
 
 function GameForm(props) {
@@ -157,7 +155,7 @@ function GameForm(props) {
                                                     className="border-gray-400 border-2 w-80 hover:border-yellow-500 focus:outline-none focus:border-yellow-200 rounded-full h-10 pl-4 text-black-500"
                                                     id="id"
                                                     name={val.id}
-                                                    required
+                                                    // required
                                                     autoComplete= "off"
                                                 />
                                                 <input
