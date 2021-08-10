@@ -85,7 +85,7 @@ function UserDetails(props) {
 
                         {props.self && (
                             props.user._id == props.self._id && (
-                                <Link href="/userprofile/addgames">
+                                <Link href="/userprofile/games/addgames">
                                     <a>
                                         <FontAwesomeIcon className="text-3xl z-10 hover:text-gray-600 transition duration-150 ease-in-out transform hover:scale-110" icon={faPlusCircle} />
                                     </a>
