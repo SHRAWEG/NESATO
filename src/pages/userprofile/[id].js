@@ -1,7 +1,4 @@
 import React from 'react';
-import { useState, useEffect } from "react";
-import { getSession } from "next-auth/client";
-import {useRouter} from "next/router";
 import { connectToDatabase } from '../../utils/mongodb';
 import useSWR from 'swr';
 
