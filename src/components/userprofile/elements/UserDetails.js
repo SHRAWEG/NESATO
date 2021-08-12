@@ -19,12 +19,13 @@ function UserDetails(props) {
 
     let captainCount = 0;
 
-    props.user.teams.map((team) => {
-        if (team.isCaptain == true) {
-            captainCount = captainCount + 1
-        }
-    })
-
+    if(props.user.teams) {
+        props.user.teams.map((team) => {
+            if (team.isCaptain == true) {
+                captainCount = captainCount + 1
+            }
+        })
+    }
     return (
         <>
             <div className="flex w-full justify-between gap-8 h-auto">
@@ -82,23 +83,26 @@ function UserDetails(props) {
                             Games of Interest
                         </legend>
 
-                        <Link href="/userprofile/addgames">
-                            <a>
-                                <FontAwesomeIcon className="text-3xl z-10 hover:text-gray-600 transition duration-150 ease-in-out transform hover:scale-110" icon={faPlusCircle} />
-                            </a>
-                        </Link>
+                        {props.self && (
+                            props.user._id == props.self._id && (
+                                <Link href="/userprofile/games/addgames">
+                                    <a>
+                                        <FontAwesomeIcon className="text-3xl z-10 hover:text-gray-600 transition duration-150 ease-in-out transform hover:scale-110" icon={faPlusCircle} />
+                                    </a>
+                                </Link>
+                            )
+                        )}
                         
                     </div>
                     
                     <div className="flex ">
-
-                        <div className="w-32 mr-10">
-                            <Image src={csgoLogo} />
-                        </div>
-
-                        <div className="w-32">
-                            <Image src={dota2Logo} />
-                        </div>   
+                        {props.user.games && (
+                            props.user.games.map((game, key) => (
+                                <div key={key} className="w-32 mr-10">
+                                    <Image src={require('../../../../public/img/gamelogos/' + game.name + '.png')} />
+                                </div>
+                            ))
+                        )} 
                     </div>
                         
                 </div>

@@ -1,15 +1,15 @@
 import React from 'react'
 import useSWR from 'swr';
-import AddGames from '../../components/userprofile/AddGames'
+import GameUpdate from '../../../components/userprofile/GameUpdate';
 
-export default function addgames() {
+export default function updateGames() {
     const fetcher = (url) => fetch(url).then((res) => res.json());
     const {data} = useSWR('/api/userprofile/getuserdata', fetcher)
 
     return (
         <div>
             {data && (
-                <AddGames self={data} />
+                <GameUpdate self={data} />
             )}
         </div>
     )

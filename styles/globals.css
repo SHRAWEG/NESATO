@@ -29,3 +29,11 @@
     font-family: 'Montserrat Alternates', sans-serif;
     font-weight: 800;
 }
+
+.tooltip {
+    @apply invisible absolute;
+  }
+  
+  .has-tooltip:hover .tooltip {
+    @apply visible z-50;
+  }

@@ -1,5 +1,4 @@
 import { connectToDatabase } from "../../../utils/mongodb";
-import { getSession } from "next-auth/client";
 
 export default async (req, res) => {
     const {method} = req;
@@ -21,20 +20,28 @@ export default async (req, res) => {
 
         const {db} = await connectToDatabase();
 
-        const sent_to = await db.collection('users').findOne({_id: u_id})
-        const sent_by = await db.collection('team').findOne({_id: t_id})
-        // const invitation = await db.collection('invitation').find().toArray()
+        const sent_to = await db.collection('users').findOne({_id: u_id});
+        const sent_by = await db.collection('team').findOne({_id: t_id});
 
-        const invitationCount = await db.collection('invitation').find({$and: [{sent_by: t_id}, {$or: [{status: "Pending"}, {status: "Accepted"}]}]}).count()
+        const invitationCount = await db.collection('invitation').find({$and: [{sent_by: t_id}, {$or: [{status: "Pending"}, {status: "Accepted"}]}]}).count();
 
-        const alreadySent = await db.collection('invitation').findOne({$and: [{sent_to: u_id}, {sent_by: t_id}, {status: "Pending"}]})
+        const alreadySent = await db.collection('invitation').findOne({$and: [{sent_to: u_id}, {sent_by: t_id}, {status: "Pending"}]});
+
+        let alreadyHasTeam = false;
 
         if (sent_to.teams) {
             sent_to.teams.map((team) => {
                 if (team._id == team_id) {
                     alreadyJoined = true;
-                }
-            })
+                };
+                if (team.game == sent_by.game) {
+                    alreadyHasTeam = true
+                };
+            });
+        };
+
+        if(alreadyHasTeam) {
+            return res.status(403).json({message: "Player is already is in a Team having same game"})
         }
         
         if (alreadySent) {
@@ -57,5 +64,7 @@ export default async (req, res) => {
         }).then(({ops}) => ops[0]);
     }
 
-    return res.status(200).json({message : "successful"})
+    return res.status(200).json({
+        message : "successful"
+    })
 }
