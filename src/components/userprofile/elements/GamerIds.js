@@ -89,7 +89,7 @@ function GamerIds(props) {
                                                 <div className="flex flex-col gap-2">
                                                         <div className="text-xl flex items-center">
                                                             <div className="w-5 mr-4">
-                                                            <Image src={'/img/gameLogos/' + gamerId.name + '.png'} width="100" height="100" layout="responsive" />
+                                                            <Image src={'/img/gameLogos/' + gamerId.name.toLowerCase() + '.png'} width="100" height="100" layout="responsive" />
                                                             </div> 
                                                             <div className="font-semibold">
                                                                 {gamerId.id_label}
