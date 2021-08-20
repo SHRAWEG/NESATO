@@ -23,6 +23,7 @@ export default function HomeAuth( {team, invitation} ) {
 
 export async function getStaticProps(req) {
   const { db } = await connectToDatabase()
+  
   const invitation = await db.collection('invitation').find().toArray();
   const team = await db.collection('team').find().toArray();
 

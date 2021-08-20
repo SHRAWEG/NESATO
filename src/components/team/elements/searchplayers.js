@@ -8,7 +8,13 @@ function SearchPlayers(props) {
 
     let players = [] 
     let alreadyJoined
+<<<<<<< HEAD
+    // let alreadyInvited=false;
+
+    console.log(props.team._id)
+=======
     let alreadyInvited = []
+>>>>>>> 103a6e19cffe23e83701d042ab9b791cb1d38575
 
     if (props.invitations) {
         props.invitations.map((invitation) => {
