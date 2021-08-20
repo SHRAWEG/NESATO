@@ -73,15 +73,15 @@ const SignIn = () => {
                                     Email
                                 </label>
                                 <input
-                                className="shadow appearance-none border w-80 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                                name="email"
-                                id="email"
-                                aria-describedby="at-sign"
-                                type="text"
-                                placeholder="Email"
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.email}
+                                    className="shadow appearance-none border w-80 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                                    name="email"
+                                    id="email"
+                                    aria-describedby="at-sign"
+                                    type="text"
+                                    placeholder="Email"
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    value={formik.values.email}
                                 />
                                 {formik.touched.email && formik.errors.email && (
                                     <p className="text-red-500 text-sm font-medium w-80">
@@ -95,14 +95,14 @@ const SignIn = () => {
                                     Password
                                 </label>
                                 <input
-                                className="shadow appearance-none border w-80 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                name="password"
-                                id="password"
-                                type="password"
-                                placeholder="Password"
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.password}
+                                    className="shadow appearance-none border w-80 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    name="password"
+                                    id="password"
+                                    type="password"
+                                    placeholder="Password"
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    value={formik.values.password}
                                 />
                                 {formik.touched.password && formik.errors.password && (
                                     <p className="text-red-500 text-sm font-medium w-80">

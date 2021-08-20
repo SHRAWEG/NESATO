@@ -13,7 +13,7 @@ export default function TeamUpdateForm(props) {
     const [teamnameClass, setteamnameClass] = useState(inputClass)
 
     let bio
-    let player_count = props.team.players.filter(i => i === 2).length;
+    let player_count = props.team.players.length;
  
     if(props.team.bio){
         bio = props.team.bio
@@ -79,31 +79,31 @@ export default function TeamUpdateForm(props) {
 
                                     <>
                                     <div>
-                                    <legend className="text-2xl mb-5 border-yellow-500 border-l-4 pl-2 mt-10">
-                                    <label htmlFor="team_name" className="mt-1 font-semibold">
-                                        Team Name
-                                        <span className="text-yellow-500 font-bold">*</span>:
-                                    </label>
-                                    </legend>
+                                        <legend className="text-2xl mb-5 border-yellow-500 border-l-4 pl-2 mt-10">
+                                            <label htmlFor="team_name" className="mt-1 font-semibold">
+                                                Team Name
+                                                <span className="text-yellow-500 font-bold">*</span>:
+                                            </label>
+                                        </legend>
 
-                                    {/* input for firstname */}
-                                    {formik.touched.team_name && formik.errors.team_name && (
-                                    setteamnameClass(errorInputClass)
-                                    )}
-                                    {formik.touched.team_name && !formik.errors.team_name && (
-                                    setteamnameClass(inputClass)
-                                    )}
-                                    <input
-                                        className={teamnameClass}
-                                        id = "team_name"
-                                        name = "team_name"
-                                        type = "text"
-                                        placeholder = "Team Name"
-                                        onChange = {formik.handleChange}
-                                        onBlur={formik.handleBlur}
-                                        value = {formik.values.team_name}
-                                        autoComplete = "off"
-                                    />
+                                        {/* input for firstname */}
+                                        {formik.touched.team_name && formik.errors.team_name && (
+                                        setteamnameClass(errorInputClass)
+                                        )}
+                                        {formik.touched.team_name && !formik.errors.team_name && (
+                                        setteamnameClass(inputClass)
+                                        )}
+                                        <input
+                                            className={teamnameClass}
+                                            id = "team_name"
+                                            name = "team_name"
+                                            type = "text"
+                                            placeholder = "Team Name"
+                                            onChange = {formik.handleChange}
+                                            onBlur={formik.handleBlur}
+                                            value = {formik.values.team_name}
+                                            autoComplete = "off"
+                                        />
                                     </div>
                                     </>
 
