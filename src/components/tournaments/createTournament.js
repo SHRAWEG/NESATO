@@ -14,13 +14,12 @@
 // rules
 
 import React from 'react';
-import { Formik } from 'formik';
+import { Field, Formik } from 'formik';
 import fetch from 'isomorphic-unfetch';
 import router from 'next/router';
 import * as Yup from 'yup';
-// import { date } from 'yup/lib/locale';
 
-export default function CreateTournament() {
+export default function CreateTournament(props) {
     return (
         <>
             <div className="container mx-auto flex flex-col items-center whitespace-nowrap gap-x-5 mb-10">
@@ -29,14 +28,14 @@ export default function CreateTournament() {
                         initialValues = {{
                             tournament_name : "",
                             organizer : "",
-                            max_participants_size : 0,
-                            max_team_size : 0,
-                            creation_date : "",
+                            max_participants_size : "",
+                            max_team_size : "",
                             registration_start_date : "",
                             registration_start_time: "",
                             registration_end_date : "",
                             registration_end_time : "", 
                             tournament_start_date : "",
+                            game : "",
                         }}
 
                         validationSchema = {
@@ -48,11 +47,7 @@ export default function CreateTournament() {
 
                                 max_team_size : Yup.number(),
                                 
-                                max_participants_size : Yup.number()
-                                // .moreThan(4, "Should be more than 2 and less than 128")
-                                // .lessThan(128, "Should be more than 2 and less than 128")
-                                // .positive('value should be positive')
-                                ,
+                                max_participants_size : Yup.number(),
 
                                 registration_start_date : Yup.date()
                                 .required("Please set registeration start date"),
@@ -67,17 +62,50 @@ export default function CreateTournament() {
                                 .required("Please set registeration end time"),
 
                                 tournament_start_date : Yup.date()
-                                .required("Please set Tournament start date")
-                                
+                                .required("Please set Tournament start date"),
+
+                                game : Yup.string()
+                                .required("Please select the game for the tournament")
                             })
                         }
 
-                        onSubmit = {
-                            async (values) => {
+                        onSubmit = { async (values, {setFieldError}) => {
 
-                                console.log(values.registeration_start_time)
-                                console.log(values.registration_end_time)
+                            let tournamentStartDate = new Date(values.tournament_start_date)
+                            let registrationStartDate = new Date(values.registration_start_date)
+                            let registrationEndDate = new Date(values.registration_end_date)
 
+                            if (values.max_participants_size > 128 || values.max_participants_size == 1) {
+                                setFieldError (
+                                    "max_participants_size",
+                                    "Max participant size should not be greater than 128 and less than 2 as we do not support tournaments having more than 128 Players"
+                                )
+                            }
+
+                            if (values.max_team_size > 7 || values.max_team_size < 5) {
+                                setFieldError (
+                                    "max_team_size",
+                                    "Max team size should be greater than 5 and less than 7 depending upon substitution"
+                                )
+                            }
+
+                            if(tournamentStartDate < registrationEndDate || tournamentStartDate < registrationStartDate) {
+                                setFieldError (
+                                    "tournament_start_date",
+                                    "How are you gonna start the Tournament if you are not done with registeration"
+                                )
+                            }
+
+                            if(registrationStartDate > registrationEndDate) {
+                                setFieldError (
+                                    "registration_end_date",
+                                    "Registration cannot end before starting."
+                                )
+                            }
+                            
+
+
+                            else {
                                 try {
                                     const response = await fetch('/api/tournaments/createTournamentApi',{
                                         method: 'POST',
@@ -85,22 +113,23 @@ export default function CreateTournament() {
                                             'Content-Type' : 'application/JSON'
                                         },
                                         body: JSON.stringify(values),
-                                        
                                     })
     
                                     const json = await response.json();
                                     console.log(json.message);
                                         
-                                    if (response.status == 200) {
+                                    if (response.status === 200) {
                                         router.replace("");
-                                        console.log(response.tournament_name)
-                                        console.log(response.organizer)
-                                        console.log(response.max_team_size)
-                                        console.log(response.tournament_start_date)
-                                        console.log(response.registeration_start_date)
-                                        console.log(response.registeration_start_time)
-                                        console.log(response.registeration_end_date)
-                                        console.log(response.registration_end_time)
+                                        console.log(
+                                            json.game)
+                                    }
+
+                                    if (response.status === 405) {
+                                        setFieldError("tournament_name", error)
+                                    }
+
+                                    if (response.status === 406) {
+                                        setFieldError("game", error)
                                     }
             
                                 } catch (error){
@@ -109,8 +138,10 @@ export default function CreateTournament() {
                                     );
                                 }
                             }
-                        }
+                            
+                        }}
                     >
+
                         {formik => (
                             <>
                                 <form
@@ -159,32 +190,36 @@ export default function CreateTournament() {
                                             type = "text"
                                             placeholder = "Organizer"
                                             onChange = {formik.handleChange}
-                                            onBlur={formik.handleBlur}
                                             value = {formik.values.organizer}
                                             autoComplete = "off"
                                         />
                                     </div>
 
-                                    {/* max-participant-size Input section */}
+                                    {/*max_participants_size Input section */}
                                     <div>
                                         <legend className="text-2xl mb-5 border-yellow-500 border-l-4 pl-2 mt-10">
-                                            <label htmlFor="max_participant_size" className="mt-1 font-semibold">
+                                            <label htmlFor="max_participants_size" className="mt-1 font-semibold">
                                                 Max Participant-size
                                             </label>
                                         </legend>
 
                                         <input
                                             className = "border-gray-200 border-2 hover:border-yellow-500 focus:outline-none focus:border-yellow-200 rounded-full h-10 pl-4 text-black-500"
-                                            id = "max_participant_size"
-                                            name = "max_participant_size"
+                                            id = "max_participants_size"
+                                            name = "max_participants_size"
                                             type = "number"
                                             placeholder = "Participant-size"
                                             onChange = {formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            value = {formik.values.max_participant_size}
+                                            value = {formik.values.max_participants_size}
                                             autoComplete = "off"
                                         />
+                                        {formik.touched.max_participants_size && formik.errors.max_participants_size && (
+                                            <p className="text-red-500 text-sm font-medium w-80">
+                                                {formik.errors.max_participants_size}
+                                            </p>
+                                        )}
                                     </div>
+                                    
 
                                     {/* max team-size Input section */}
                                     <div>
@@ -201,15 +236,14 @@ export default function CreateTournament() {
                                             type = "number"
                                             placeholder = "Team-size"
                                             onChange = {formik.handleChange}
-                                            onBlur={formik.handleBlur}
                                             value = {formik.values.max_team_size}
                                             autoComplete = "off"
                                         />
-                                        {/* {formik.touched.max_team_size && formik.errors.max_team_size && (
+                                        {formik.touched.max_team_size && formik.errors.max_team_size && (
                                             <p className="text-red-500 text-sm font-medium w-80">
                                                 {formik.errors.max_team_size}
                                             </p>
-                                        )} */}
+                                        )}
                                     </div>
                                     
                                     {/* Tournament Start Date Input section */}
@@ -226,7 +260,6 @@ export default function CreateTournament() {
                                             name = "tournament_start_date"
                                             type = "date"
                                             onChange = {formik.handleChange}
-                                            onBlur={formik.handleBlur}
                                             value = {formik.values.tournament_start_date}
                                             autoComplete = "off"
                                         />
@@ -267,7 +300,7 @@ export default function CreateTournament() {
                                     <div>
                                         <legend className="text-2xl mb-5 border-yellow-500 border-l-4 pl-2 mt-10">
                                             <label htmlFor="registration_start_time" className="mt-1 font-semibold">
-                                                Registration Start Time Date
+                                                Registration Start Time
                                             </label>
                                         </legend>
 
@@ -276,7 +309,7 @@ export default function CreateTournament() {
                                             id = "registration_start_time"
                                             name = "registration_start_time"
                                             type = "time"
-                                            placeholder = "Registration time Date"
+                                            placeholder = "Registration start time"
                                             onChange = {formik.handleChange}
                                             onBlur={formik.handleBlur}
                                             value = {formik.values.registration_start_time}
@@ -337,6 +370,41 @@ export default function CreateTournament() {
                                         {formik.touched.registration_end_time && formik.errors.registration_end_time && (
                                             <p className="text-red-500 text-sm font-medium w-80">
                                                 {formik.errors.registration_end_time}
+                                            </p>
+                                        )}
+                                    </div>
+
+                                    {/* Game Selection for the tournament */}
+                                    <div>
+                                        <legend className="text-2xl mb-5 border-yellow-500 border-l-4 pl-2 mt-10">
+                                            <label htmlFor="game" className="mt-1 font-semibold">
+                                                Game
+                                            </label>
+                                        </legend>
+
+                                        <select 
+                                            name="game" 
+                                            id="game"
+                                            value={formik.values.games}
+                                            onChange = {formik.handleChange}
+                                            onBlur={formik.handleBlur}
+                                            autoComplete = "off"
+                                        >
+                                            <option value="">
+                                                Please Select a Game
+                                            </option>
+                                            {props.games.map((game, key) => (
+                                                <option 
+                                                    value = {game.name}
+                                                    key = {key}
+                                                >
+                                                    {game.name.toUpperCase()}  
+                                                </option>
+                                            )) }
+                                        </select>
+                                        {formik.touched.game && formik.errors.game && (
+                                            <p className="text-red-500 text-sm font-medium w-80">
+                                                {formik.errors.game}
                                             </p>
                                         )}
                                     </div>

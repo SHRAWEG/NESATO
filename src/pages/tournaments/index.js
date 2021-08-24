@@ -18,7 +18,7 @@ function Tournaments( {tournaments} ) {
                             return(
                                 <div key={key} className="">
                                     {data && (
-                                    <TournamentCard tournament={tournament} self={data} />
+                                        <TournamentCard tournament={tournament} self={data} />
                                     )}
                                 </div>
                                 

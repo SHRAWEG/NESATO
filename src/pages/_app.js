@@ -17,6 +17,9 @@ function MyApp({ Component, pageProps }) {
         case "SignUp":
             return <Component {...pageProps} />;
 
+        case "Date":
+            return <Component {...pageProps} />;
+
         default:
             const [isLoading , setIsLoading] = useState(true);
             const router = useRouter();

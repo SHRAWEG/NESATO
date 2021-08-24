@@ -33,19 +33,22 @@ export default async (req,res) => {
       }
 
       else {
-        var mongo = require('mongodb');
         //Encrypting password
         const hashedPassword = await bcrypt.hash(password, 12);
 
         //Inserting into the database
-        const user = await db
-          .collection('users')
-          .insertOne({ email, password: hashedPassword, username, create_date: date })
+        const user = await db.collection('users')
+          .insertOne({ 
+            email, 
+            password: hashedPassword, 
+            username, 
+            create_date: date 
+          })
           .then(({ ops }) => ops[0]);
 
-          res.status(200).json({message: "success"});
-          return;
-        }
+        res.status(200).json({message: "success"});
+        return;
+      }
     }
   }
 } 
